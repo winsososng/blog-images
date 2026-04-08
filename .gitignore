@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 임시 파일
+*.tmp
+*.log
+_tex_work/
+
+# 에디터
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# 네이버 프로필 (민감 정보)
+NaverBlogProfile/
