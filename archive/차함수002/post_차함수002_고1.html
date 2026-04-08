@@ -1,0 +1,588 @@
+<style>
+:root {
+  --c-main: #2563EB;
+  --c-accent: #F59E0B;
+  --c-examiner: #7C3AED;
+  --c-danger: #DC2626;
+  --c-ok: #16A34A;
+  --c-gray: #6B7280;
+  --c-bg: #FAFAFA;
+  --c-card: #FFFFFF;
+  --c-text: #1F2937;
+  --max-w: 720px;
+  --radius: 12px;
+}
+.pc {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
+  color: var(--c-text);
+  font-size: 1.125rem;
+  line-height: 1.8;
+  background: var(--c-bg);
+  padding: 20px;
+}
+.post-wrapper {
+  background: var(--c-card);
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+h2 {
+  font-size: 1.625rem;
+  color: var(--c-main);
+  border-bottom: 2px solid #E5E7EB;
+  padding-bottom: 8px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+h3 {
+  font-size: 1.375rem;
+  color: #374151;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+p { margin-bottom: 1rem; }
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  display: block;
+  margin: 1.5rem auto;
+}
+.img-caption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--c-gray);
+  margin-top: -1rem;
+  margin-bottom: 1.5rem;
+}
+blockquote {
+  border-left: 4px solid var(--c-main);
+  background: #EFF6FF;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-weight: 600;
+}
+
+/* reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* math-hero */
+.math-hero {
+  background: linear-gradient(135deg, #EFF6FF, #F0F9FF);
+  border: 2px solid var(--c-main);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  margin: 2rem 0;
+  position: relative;
+}
+.math-hero-label {
+  position: absolute;
+  top: -14px;
+  left: 24px;
+  background: var(--c-main);
+  color: white;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.math-hero-formula {
+  font-size: 1.3rem;
+  padding-top: 0.5rem;
+}
+
+/* math-steps */
+.math-steps { margin: 1.5rem 0; }
+.math-step {
+  padding: 1rem 1.5rem;
+  border-left: 3px solid var(--c-main);
+  margin-bottom: 1rem;
+  background: #F8FAFC;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.step-num {
+  display: inline-block;
+  background: var(--c-gray);
+  color: white;
+  padding: 2px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.step-desc {
+  color: var(--c-gray);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+/* key-message */
+.key-message {
+  background: #FEF3C7;
+  border-left: 4px solid var(--c-accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.key-icon { font-size: 1.5rem; flex-shrink: 0; }
+.key-message p { margin: 0; font-weight: 500; }
+
+/* table-interactive */
+.table-interactive {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.table-interactive th {
+  background: var(--c-main);
+  color: white;
+  padding: 12px 16px;
+  font-weight: 600;
+  text-align: left;
+}
+.table-interactive td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+}
+.table-interactive tbody tr:hover {
+  background: #EFF6FF;
+  transition: background 0.2s ease;
+}
+
+/* chalkboard */
+.chalkboard {
+  background: #2D5016;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  border: 12px solid #8B6914;
+  border-radius: 4px;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+  padding: 2.5rem 2rem;
+  margin: 2rem 0;
+  min-height: 160px;
+  position: relative;
+  overflow: hidden;
+}
+.chalk-surface {
+  font-family: 'Nanum Pen Script', 'Hi Melody', 'Gaegu', cursive;
+  font-size: 1.6rem;
+  line-height: 2.2;
+}
+.chalk-char {
+  display: inline-block;
+  opacity: 0;
+  text-shadow: 0 0 4px rgba(255,255,255,0.3);
+}
+.chalk-char.show { opacity: 1; }
+.chalk-dust {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  pointer-events: none;
+  animation: dustFall 1.5s ease-out forwards;
+}
+@keyframes dustFall {
+  0% { opacity: 1; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+}
+
+/* Add custom styling for keyword emphasis */
+.keyword-strong {
+  color: var(--c-main);
+  font-weight: 800;
+}
+</style>
+
+<div class="pc">
+  <!-- MathJax and Font dependencies -->
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Hi+Melody&family=Gaegu&display=swap" rel="stylesheet">
+
+  <div class="post-wrapper">
+    <div class="reveal">
+      <h2>0. 미용실에서 발견한 수학</h2>
+      <p>아빠가 얼마 전에 미용실에 갔어. 머리를 깎는데, 원장님이 그냥 가위로 자르지 않고 빗을 갖다 대고 가위질을 하더라고. 빗을 머리에 대고, 빗 위로 삐죽 튀어나온 머리카락만 싹둑싹둑 잘라내는 거야.</p>
+      
+      <p>그 모습을 보면서 문득 이런 생각이 들었어. "어차피 머리카락은 가위가 자르는 건데, 왜 굳이 빗을 갖다 댈까...?"</p>
+      
+      <p>그러다 갑자기 직선의 차함수가 떠올랐어. 소름...</p>
+      
+      <p>빗을 대면 뭐가 좋아? 원장님은 빗 아래쪽 머리카락은 신경 쓸 필요가 없어져. 빗 위로 튀어나온 부분에만 집중하면 돼. 그래서 규칙적이고, 깔끔하고, 빠르게 자를 수 있는 거야.</p>
+      
+      <p>수학에서도 똑같아. 3차함수라는 복잡한 곡선에 직선(1차함수)을 갖다 대면, 직선 아래 부분은 무시하고, 직선 위로 튀어나온 부분에만 집중할 수 있어. 이게 바로 오늘 배울 <span class="keyword-strong">차함수 스킬</span>이야.</p>
+      
+      <blockquote>차함수 스킬 한 줄 요약: 복잡한 함수에 직선을 갖다 대면, 계산량이 80% 줄어든다.</blockquote>
+    </div>
+
+    <!-- Section 1 -->
+    <div class="reveal">
+      <h2>1. 차함수 스킬이란? — 빗을 갖다 대는 원리</h2>
+      
+      <p><strong>1-1. 일단 상황을 보자</strong></p>
+      <p>3차함수 $f(x)$가 있어. 그리고 이 함수의 그래프와 3번 만나는 직선 $g(x)$가 있다고 해보자. 교점이 $x = a, b, c$ 세 곳이야.</p>
+      
+      <p>이때, $f(x) - g(x)$를 생각해보자. 이 차함수는 $x = a, b, c$에서 값이 0이 돼. 왜? 교점에서는 $f(x) = g(x)$니까, 빼면 당연히 0이지.</p>
+
+      <p>그런데 $f(x)$는 3차, $g(x)$는 1차니까 $f(x) - g(x)$는 여전히 3차야. 3차함수인데 근이 $a, b, c$ 세 개? 그러면 이렇게 쓸 수 있어:</p>
+      
+      <p>$$f(x) - g(x) = h(x-a)(x-b)(x-c)$$</p>
+      
+      <p>여기서 $h$는 $f(x)$의 최고차 계수야. 양변을 정리하면:</p>
+      
+      <div class="math-hero">
+        <div class="math-hero-label">핵심 공식</div>
+        <div class="math-hero-formula">
+          $$f(x) = h(x-a)(x-b)(x-c) + g(x)$$
+        </div>
+      </div>
+      
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/차함수002/formula_001.png" style="width:100%" alt="차함수 스킬 핵심 공식">
+      <div class="img-caption">차함수 스킬 핵심 공식</div>
+
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/차함수002/graph_001_cubic_line.png" style="width:100%" alt="3차함수와 직선의 3교점, 그리고 차함수">
+      <div class="img-caption">3차함수와 직선의 3교점, 그리고 차함수</div>
+      
+      <p>이게 끝이야. 이 한 줄이 차함수 스킬의 전부야.</p>
+      
+      <p><strong>1-2. 이게 왜 대단한 건데?</strong></p>
+      
+      <p>잘 봐. 원래 $f(x) = ax^3 + bx^2 + cx + d$ 이런 식이었는데, 이제는 $(x-a)(x-b)(x-c)$라는 <strong>거리곱</strong> 형태로 바뀌었어. 거리곱이 되면 뭐가 좋냐고? 특정 점에서의 함수값을 구할 때, 그냥 거리를 곱하면 끝이야. 복잡한 전개나 연립방정식이 필요 없어져.</p>
+      
+      <p>그리고 중요한 건, 이 변환은 <strong>항등식</strong>이야. 식의 형태만 바꾼 거지, 함수 자체는 그대로야. 그러니까 어떤 계산을 하든 이 형태를 자유롭게 쓸 수 있어.</p>
+      
+      <p>미용실로 돌아가보자. 빗을 대기 전과 후, 머리카락 자체가 바뀐 건 아니야. 단지 관찰하기가 편해진 것뿐이야. 차함수 스킬도 마찬가지. 함수 자체는 그대로인데, 바라보는 방식만 바꾼 거야.</p>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="reveal">
+      <h2>2. 왜 하필 직선(1차함수)인가?</h2>
+      
+      <p>여기서 궁금할 수 있어. "선생님, 빼는 함수가 꼭 직선이어야 해요? 2차함수를 빼면 안 되나요?"</p>
+      
+      <p>물론 돼. 이론적으로 0차(상수함수), 1차, 2차 어떤 것이든 빼면 차함수를 만들 수 있어.</p>
+      
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/차함수002/graph_002_comb.png" style="width:100%" alt="빗(직선) 위로 튀어나온 부분 = 차함수">
+      <div class="img-caption">빗(직선) 위로 튀어나온 부분 = 차함수</div>
+
+      <p>그런데 생각해봐. 미용실에서 빗이 곧아야 깔끔하게 자를 수 있잖아. 구부러진 빗으로 머리를 자르면 오히려 더 복잡해지지 않겠어? 직선은 가장 단순하고, 가장 익숙한 함수야. 기울기와 y절편, 딱 두 개만 알면 완전히 결정돼. 그래서 직선을 빗으로 사용하면 관찰이 가장 편해져.</p>
+      
+      <div class="key-message">
+        <span class="key-icon">💡</span>
+        <p>실전에서도 거의 대부분 1차함수(직선)를 사용해. 그래서 앞으로 "차함수 스킬"이라고 하면, <strong>"1차 차함수 스킬"</strong>을 말하는 거라고 생각하면 돼. 물론 상수함수(0차)를 사용하는 경우도 있어. 그건 빗 중에서도 가장 단순한 "수평 빗"인 셈이지. 원리는 똑같아!</p>
+      </div>
+    </div>
+    
+    <!-- Section 3 -->
+    <div class="reveal">
+      <h2>3. 차함수 스킬의 핵심 공식</h2>
+      
+      <p>자, 정리하자. 3차함수 $f(x)$와 직선 $g(x)$가 $x = a, b, c$에서 만날 때:</p>
+      
+      <!-- 칠판 판서 1 -->
+      <div class="chalkboard reveal" data-chalk='[
+        {"text": "f(x) = h(x-a)(x-b)(x-c) + g(x)", "color": "blue", "effect": "none"},
+        {"text": "↑ 거리곱", "color": "yellow", "effect": "underline"},
+        {"text": "↑ 보정(되돌아가기)", "color": "yellow", "effect": "underline"}
+      ]'>
+        <div class="chalk-surface"></div>
+      </div>
+      
+      <p>이 공식의 각 부분이 뭘 의미하는지 짚어볼게.</p>
+      
+      <table class="table-interactive">
+        <thead>
+          <tr>
+            <th>부분</th>
+            <th>의미</th>
+            <th>미용실 비유</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>$h(x-a)(x-b)(x-c)$</td>
+            <td>차함수 (=빗 위로 튀어나온 부분)</td>
+            <td>잘라야 할 머리카락</td>
+          </tr>
+          <tr>
+            <td>$g(x)$</td>
+            <td>기준 직선 (=빗)</td>
+            <td>빗 자체</td>
+          </tr>
+          <tr>
+            <td>$a, b, c$</td>
+            <td>교점의 x좌표</td>
+            <td>빗이 머리에 닿는 점</td>
+          </tr>
+          <tr>
+            <td>$h$</td>
+            <td>최고차 계수</td>
+            <td>머리카락의 굵기(?)</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <p><strong>이 공식을 읽는 법:</strong> "f(x)는 직선 g(x)와 a, b, c에서 만나는 3차함수다."</p>
+      
+      <p>원래 $f(x) = ax^3 + bx^2 + cx + d$라고 쓰면 미지수가 4개(a, b, c, d)야. 조건 4개를 모아서 연립방정식을 풀어야 해. 그런데 차함수 스킬로 바꾸면? 교점 정보가 이미 식에 들어가 있으니까, 남은 미지수가 확 줄어들어. 이게 계산량 80% 감소의 비밀이야.</p>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="reveal">
+      <h2>4. 거리곱 + 보정 = 암산급 계산</h2>
+      
+      <p><strong>4-1. 함수값 구하기</strong></p>
+      <p>자, 이제 실전이야. 예를 들어볼게.</p>
+      
+      <blockquote>$f(x)$는 최고차계수가 1인 3차함수이고, 직선 $g(x) = 3x - 2$와 $x = 1, 4, 5$에서 만난다. $f(6)$의 값은?</blockquote>
+      
+      <div class="math-steps">
+        <div class="math-step reveal">
+          <span class="step-num">Step 1</span>
+          <div class="step-content">$$f(x) = (x-1)(x-4)(x-5) + (3x-2)$$</div>
+          <p class="step-desc">차함수 스킬을 적용하여 식을 세웁니다.</p>
+        </div>
+        <div class="math-step reveal">
+          <span class="step-num">Step 2</span>
+          <div class="step-content">$$f(6) = (6-1)(6-4)(6-5) + (3 \cdot 6 - 2)$$</div>
+          <p class="step-desc">$x = 6$을 대입합니다.</p>
+        </div>
+        <div class="math-step reveal">
+          <span class="step-num">Step 3</span>
+          <div class="step-content">$$= 5 \cdot 2 \cdot 1 + 16 = 26$$</div>
+          <p class="step-desc">끝이야. <strong>거리곱 + 보정 = 답.</strong> 복잡한 전개나 연립방정식이 필요 없어.</p>
+        </div>
+      </div>
+      
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/차함수002/formula_004.png" style="width:80%" alt="f(6) = 5×2×1 + 16 = 26">
+      <div class="img-caption">f(6) = 5×2×1 + 16 = 26</div>
+
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/차함수002/graph_003_distance.png" style="width:100%" alt="x=6에서 각 근까지의 거리곱">
+      <div class="img-caption">x=6에서 각 근까지의 거리곱</div>
+      
+      <p>만약 차함수 스킬 없이 풀었다면? $f(x) = x^3 + bx^2 + cx + d$에 $f(1) = 1$, $f(4) = 10$, $f(5) = 13$ 조건을 넣어서 3원 연립방정식을 풀어야 해. 시간 차이가 느껴지지?</p>
+
+      <table class="table-interactive">
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>무대포 연립</th>
+            <th>차함수 스킬</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>식 세우기</td>
+            <td>$f(x) = x^3 + bx^2 + cx + d$</td>
+            <td>$f(x) = (x-1)(x-4)(x-5) + (3x-2)$</td>
+          </tr>
+          <tr>
+            <td>필요한 작업</td>
+            <td>3원 연립방정식 풀기</td>
+            <td>$x=6$ 대입 한 번</td>
+          </tr>
+          <tr>
+            <td>계산 단계</td>
+            <td>10단계+</td>
+            <td>3단계</td>
+          </tr>
+          <tr>
+            <td>실수 가능성</td>
+            <td>높음 (연립 과정에서)</td>
+            <td>낮음 (곱셈 한 번)</td>
+          </tr>
+          <tr>
+            <td>소요 시간</td>
+            <td>5분+</td>
+            <td>30초</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/차함수002/formula_002.png" style="width:80%" alt="함수값 일반 공식">
+      <div class="img-caption">함수값 일반 공식</div>
+
+      <p><strong>4-2. 미분계수 구하기</strong></p>
+      <p>미분계수도 마찬가지야. 같은 예시에서 $f'(5)$를 구해보자.</p>
+      
+      <p>$f(x) = (x-1)(x-4)(x-5) + (3x-2)$에서, 차함수 부분의 $x=5$에서의 미분계수를 구해야 해. 차함수 $(x-1)(x-4)(x-5)$는 $x=5$에서 값이 0이고, 미분하면 곱의 미분법에 의해 $x=5$에서의 미분계수는:</p>
+      
+      <p>$$(5-1)(5-4) = 4 \cdot 1 = 4$$</p>
+      
+      <p>왜 이렇게 되냐고? $(x-1)(x-4)(x-5)$를 미분할 때, $x=5$를 대입하면 $(x-5)$ 항이 포함된 부분은 전부 0이 되고, $(x-5)$가 미분된 항만 살아남거든.</p>
+      
+      <p>여기에 직선 $g(x) = 3x - 2$의 기울기 3을 더하면:</p>
+      
+      <p>$$f'(5) = 4 + 3 = 7$$</p>
+      
+      <p>이것도 <strong>거리곱(미분) + 보정(직선 기울기) = 답.</strong> 같은 패턴이야.</p>
+      
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/차함수002/formula_003.png" style="width:80%" alt="미분계수 일반 공식">
+      <div class="img-caption">미분계수 일반 공식</div>
+
+      <p>핵심 구조를 정리하면:</p>
+      
+      <!-- 칠판 판서 2 -->
+      <div class="chalkboard reveal" data-chalk='[
+        {"text": "① 내려오기 (차함수)", "color": "white", "effect": "none"},
+        {"text": "② 관찰 (거리곱)", "color": "blue", "effect": "none"},
+        {"text": "③ 되돌아가기 (보정)", "color": "yellow", "effect": "star"}
+      ]'>
+        <div class="chalk-surface"></div>
+      </div>
+      
+      <p>이게 차함수 스킬의 기본 프로토콜이야. 빗을 대서 내려가고, 관찰하고, 다시 올라오는 거지.</p>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="reveal">
+      <h2>5. 3차는 무조건 된다!</h2>
+      
+      <p>여기서 좋은 소식이 있어. <strong>어떤 3차함수든, 직선을 잘 설정하면 무조건 3번 만나게 할 수 있어.</strong></p>
+      <p>왜 그런지 생각해보자. 3차함수가 극대와 극소를 가지려면, 도함수(2차함수)가 실근 2개를 가져야 해. 3차함수의 도함수는 $f'(x) = 3ax^2 + 2bx + c$ 형태의 포물선이야.</p>
+      <p>이 포물선에 상수함수 $y = k$를 위아래로 움직여보면, 어떤 $k$에서는 반드시 포물선과 2번 만나는 구간이 있어. 도함수의 상수 부분은 원함수의 1차항 계수에 해당하니까, 결국 1차항 계수를 조절하면 어떤 3차함수든 극대·극소를 만들 수 있다는 거야.</p>
+      <p>극대·극소가 생기면, 그 사이를 지나는 직선을 그으면 반드시 3교점이 생겨. 마치 일본에서 물고기를 꼬치에 끼워서 굽는 것처럼, 직선이 3차함수의 곡선을 쭉 관통하는 모양이야.</p>
+      <p>그런데 4차함수는 어떨까? 4차함수는 모양에 따라 아무리 직선을 움직여도 4번 만나게 할 수 없는 경우가 있어. 그래서 실전에서는 주로 <strong>3차함수 + 1차 차함수</strong> 조합이 가장 강력해.</p>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="reveal">
+      <h2>6. 출제자도 이렇게 문제를 만든다</h2>
+      
+      <div class="key-message">
+         <span class="key-icon">🎯</span>
+         <p>솔직히 말하면, 수능이나 모의고사에서 3차함수 문제를 내는 출제자들도 이 원리를 알고 문제를 설계해. "3차함수와 직선이 만나는 조건"이 주어지면, 출제자는 네가 차함수 스킬을 쓸 줄 아는지를 보는 거야.</p>
+      </div>
+      <p>차함수 스킬을 모르면? $ax^3 + bx^2 + cx + d$에 조건을 하나하나 넣어서 4원 연립방정식을 풀어야 해. 시간은 시간대로 잡아먹고, 실수 확률은 올라가고, 결국 못 풀 수도 있어.</p>
+      <p>차함수 스킬을 알면? 조건이 이미 식에 녹아 있으니까, 핵심 계산만 딱 하면 끝. 이게 바로 빗의 힘이야.</p>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="reveal">
+      <h2>7. 정리</h2>
+      <p>오늘 배운 핵심을 정리하자.</p>
+      <ul>
+        <li><strong>차함수 스킬이란?</strong> 3차함수에 적절한 직선을 갖다 대서(차함수를 만들어서), 복잡한 식을 거리곱 형태로 단순화하는 기법이야.</li>
+        <li><strong>사용법:</strong> 내려오기(차함수) → 관찰(거리곱) → 되돌아가기(보정)</li>
+        <li><strong>왜 직선인가?</strong> 직선이 가장 단순하고 익숙하니까. 빗은 곧아야 해.</li>
+        <li><strong>어디에 쓰나?</strong> 3차함수 문제에서 가장 강력해. 함수값, 미분계수, 접선 조건 등 거의 모든 계산에 적용 가능.</li>
+      </ul>
+      <p>아빠가 미용실에서 빗 하나로 깨달은 것처럼, 너도 직선 하나로 3차함수의 세계가 달라지는 걸 느꼈으면 좋겠어. 다음 편에서는 차함수 스킬을 실전 문제에 적용하는 연습을 해볼 거야!</p>
+    </div>
+
+  </div> <!-- End post-wrapper -->
+</div> <!-- End pc -->
+
+<script>
+// MathJax Load
+MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+<script>
+// reveal intersection observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// chalkboard animation
+function animateChalkboard(el) {
+  const data = JSON.parse(el.dataset.chalk);
+  const surface = el.querySelector('.chalk-surface');
+  const colors = { white: 'rgba(255,255,255,0.95)', yellow: '#FFD700', red: '#FF6B6B', blue: '#6CB4EE' };
+  let totalDelay = 0;
+
+  data.forEach((line, lineIdx) => {
+    const lineDiv = document.createElement('div');
+    lineDiv.style.marginBottom = '0.5rem';
+    const chars = line.text.split('');
+    
+    chars.forEach((char, i) => {
+      const span = document.createElement('span');
+      span.className = 'chalk-char';
+      span.textContent = char;
+      span.style.color = colors[line.color] || colors.white;
+      const rot = (Math.random() - 0.5) * 5; 
+      const scale = 0.97 + Math.random() * 0.06; 
+      const dy = (Math.random() - 0.5) * 3; 
+      span.style.transform = `rotate(${rot}deg) scale(${scale}) translateY(${dy}px)`;
+      
+      setTimeout(() => {
+        span.classList.add('show');
+        if (i % 3 === 0) {
+          for (let p = 0; p < 2; p++) {
+            const dust = document.createElement('div');
+            dust.className = 'chalk-dust';
+            dust.style.left = span.offsetLeft + 'px';
+            dust.style.top = span.offsetTop + 'px';
+            dust.style.setProperty('--dx', (Math.random()-0.5)*20 + 'px');
+            dust.style.setProperty('--dy', Math.random()*15 + 5 + 'px');
+            el.appendChild(dust);
+            setTimeout(() => dust.remove(), 1500);
+          }
+        }
+      }, totalDelay + i * 32); 
+    });
+    
+    if (line.effect === 'underline') {
+      setTimeout(() => {
+        lineDiv.style.borderBottom = `2px solid ${colors[line.color]}`;
+        lineDiv.style.paddingBottom = '4px';
+      }, totalDelay + chars.length * 32 + 200);
+    }
+    
+    if (line.effect === 'star') {
+      setTimeout(() => {
+        const star = document.createElement('span');
+        star.textContent = ' ⭐';
+        star.style.fontSize = '1.4rem';
+        star.style.animation = 'starPop 0.4s ease';
+        lineDiv.appendChild(star);
+      }, totalDelay + chars.length * 32 + 200);
+    }
+    
+    totalDelay += chars.length * 32 + 300;
+    surface.appendChild(lineDiv);
+  });
+}
+
+const chalkObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.animated) {
+      entry.target.dataset.animated = 'true';
+      entry.target.classList.add('visible');
+      animateChalkboard(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.chalkboard').forEach(el => chalkObserver.observe(el));
+</script>
