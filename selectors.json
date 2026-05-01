@@ -1,0 +1,57 @@
+{
+  "_comment": "네이버 블로그 에디터 셀렉터 — F12 콘솔로 확인 후 업데이트",
+  "_updated": "2026-04-07",
+  "_how_to_update": "Chrome F12 → Console → mainFrame iframe 안에서 탐색",
+
+  "blog_url": "https://blog.naver.com/winsosong",
+  "write_url": "https://blog.naver.com/winsosong/postwrite",
+
+  "iframe": "mainFrame",
+
+  "title": ".se-title-text .se-text-paragraph",
+  "title_placeholder": ".se-title-text .se-placeholder",
+
+  "body": ".se-component.se-text .se-text-paragraph",
+  "body_placeholder": ".se-component.se-text .se-placeholder",
+
+  "photo_button": ".se-image-toolbar-button",
+  "file_input": "input[type='file']",
+  "file_input_accept": ".jpg,.jpeg,.gif,.png,.bmp,.heic,.heif,.webp",
+
+  "image_caption": ".se-caption .se-text-paragraph",
+  "image_caption_placeholder": ".se-caption .se-placeholder",
+
+  "publish_button_open": "button.publish_btn__m9KHH",
+  "publish_button_open_fallback": "//button[contains(@class, 'publish_btn')]",
+
+  "tag_input": "input[placeholder*='태그 입력']",
+  "tag_input_class": "input.tag_input__rvUB5",
+
+  "save_button": "button.save_btn__bzc5B",
+  "save_button_fallback": "//button[contains(@class, 'save_btn')]",
+
+  "category_area": ".option_category___kpJc",
+
+  "toolbar_buttons": {
+    "_comment": "참고용 — 필요 시 사용",
+    "photo": ".se-image-toolbar-button",
+    "video": ".se-video-toolbar-button",
+    "quote": ".se-insert-quotation-default-toolbar-button",
+    "line": ".se-insert-horizontal-line-default-toolbar-button",
+    "link": ".se-oglink-toolbar-button",
+    "code": ".se-code-toolbar-button",
+    "table": ".se-table-toolbar-button",
+    "formula": ".se-formula-toolbar-button"
+  },
+
+  "timing": {
+    "_comment": "각 동작 사이 대기 시간 (초) — 느리면 늘리기",
+    "after_click": 0.3,
+    "after_paste": 0.5,
+    "after_photo_click": 1.0,
+    "after_image_upload": 2.5,
+    "after_publish_open": 1.0,
+    "after_tag_enter": 0.3,
+    "caption_wait_max": 10
+  }
+}
