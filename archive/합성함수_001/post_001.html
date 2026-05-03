@@ -1,0 +1,716 @@
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Hi+Melody&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+<style>
+:root {
+  --color-primary: #2563EB;
+  --color-primary-light: #3B82F6;
+  --color-primary-dark: #1D4ED8;
+  --color-primary-bg: #EFF6FF;
+
+  --color-accent: #F59E0B;
+  --color-accent-light: #FCD34D;
+  --color-accent-dark: #D97706;
+  --color-accent-bg: #FFFBEB;
+
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  --color-warning: #F97316;
+  --color-info: #6366F1;
+
+  --color-text: #1E293B;
+  --color-text-secondary: #64748B;
+  --color-text-muted: #94A3B8;
+  --color-bg: #FFFFFF;
+  --color-bg-subtle: #F8FAFC;
+  --color-bg-card: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+
+  --color-examiner: #7C3AED;
+  --color-examiner-light: #8B5CF6;
+  --color-examiner-bg: #F5F3FF;
+  --color-trap: #DC2626;
+  --color-trap-bg: #FEF2F2;
+
+  --font-heading: 'Pretendard', -apple-system, sans-serif;
+  --font-body: 'Pretendard', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'D2Coding', monospace;
+  --font-accent: 'RIDIBatang', 'Noto Serif KR', serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  --leading-tight: 1.4;
+  --leading-normal: 1.8;
+  --leading-relaxed: 2.0;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.pc {
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+  font-size: var(--text-lg);
+  padding: var(--space-6);
+  word-break: keep-all;
+}
+
+.pc p { margin-bottom: var(--space-6); }
+.pc ul, .pc ol { margin-bottom: var(--space-6); padding-left: var(--space-6); }
+.pc li { margin-bottom: var(--space-2); }
+.pc img { max-width: 100%; height: auto; border-radius: var(--radius-md); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.math-highlight {
+  display: block;
+  padding: var(--space-6) var(--space-8);
+  margin: var(--space-8) 0;
+  background: var(--color-primary-bg);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.math-highlight.visible {
+  animation: mathGlow 1.5s ease-out;
+}
+
+@keyframes mathGlow {
+  0% { box-shadow: 0 0 0 rgba(37,99,235,0); }
+  30% { box-shadow: 0 0 30px rgba(37,99,235,0.2); }
+  100% { box-shadow: var(--shadow-sm); }
+}
+
+.math-hero {
+  text-align: center;
+  padding: var(--space-8) var(--space-10);
+  background: linear-gradient(135deg, var(--color-primary-bg), #F0F4FF);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+
+.table-interactive {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin: var(--space-8) 0;
+}
+.table-interactive th {
+  background: var(--color-primary);
+  color: white;
+  padding: var(--space-3) var(--space-4);
+  font-weight: 600;
+  text-align: center;
+}
+.table-interactive td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-align: center;
+}
+.table-interactive tbody tr:hover td {
+  background: var(--color-primary-bg);
+  transform: scale(1.01);
+}
+.table-interactive tr.pattern-found td {
+  background: var(--color-accent-bg);
+  font-weight: 600;
+}
+
+.chalkboard {
+  background: linear-gradient(170deg, #2e4a3a 0%, #243832 40%, #1e3028 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-8) var(--space-12);
+  position: relative;
+  overflow: hidden;
+  margin: var(--space-8) 0;
+  box-shadow: var(--shadow-md);
+}
+.chalkboard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: var(--radius-lg);
+}
+.chalk-tray {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  opacity: 0.45;
+}
+.chalk-tray-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.chalk-w .ch { color: rgba(235, 230, 220, 0.88); text-shadow: 1px 1px 2px rgba(235,230,220,0.08); }
+.chalk-y .ch { color: rgba(252, 211, 77, 0.9); text-shadow: 1px 1px 2px rgba(252,211,77,0.08); }
+.chalk-r .ch { color: rgba(248, 113, 113, 0.88); text-shadow: 1px 1px 2px rgba(248,113,113,0.08); }
+.chalk-b .ch { color: rgba(147, 197, 253, 0.88); text-shadow: 1px 1px 2px rgba(147,197,253,0.08); }
+
+.chalk-row {
+  font-size: 22px;
+  line-height: 2.1;
+  margin-bottom: 0.5rem;
+  position: relative;
+  white-space: pre-wrap;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  z-index: 1;
+}
+.ch {
+  display: inline-block;
+  opacity: 0;
+  font-family: 'Nanum Pen Script', 'Hi Melody', 'Gaegu', cursive;
+}
+.ch.on { opacity: 1; }
+.chalk-dust {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: dustFall 1.2s ease-out forwards;
+  z-index: 2;
+}
+@keyframes dustFall {
+  0% { opacity: 0.5; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-primary);
+  margin-top: var(--space-12);
+}
+.section-number {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  opacity: 0.3;
+  font-family: var(--font-mono);
+}
+.section-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.key-message {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-accent-bg);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-accent);
+  margin: var(--space-8) 0;
+}
+.key-message-icon {
+  font-size: var(--text-2xl);
+  flex-shrink: 0;
+}
+.key-message-text {
+  font-family: var(--font-accent);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.trap-box {
+  background: var(--color-trap-bg);
+  border: 2px solid var(--color-trap);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin: var(--space-8) 0;
+  position: relative;
+}
+.trap-box::before {
+  content: '🚨 함정 주의 🚨';
+  display: block;
+  font-weight: bold;
+  color: var(--color-trap);
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+  text-align: center;
+}
+
+.examiner-block {
+  background: var(--color-examiner-bg);
+  border-left: 4px solid var(--color-examiner);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  margin: var(--space-8) 0;
+}
+.examiner-title {
+  color: var(--color-examiner);
+  font-weight: bold;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+}
+</style>
+
+<div class="pc">
+  <div style="margin-bottom: var(--space-12); padding: var(--space-10) var(--space-6); background: linear-gradient(135deg, #f8fafc, #eff6ff); border-radius: var(--radius-lg); text-align: center;">
+    <h1 style="font-size: var(--text-4xl); font-weight: 800; color: var(--color-primary); line-height: 1.3; margin-bottom: var(--space-4);">N축? 갖다 버려.<br>이제부터는 꺾인 점을 찾아서,<br>개미의 눈으로 보라!!</h1>
+    <p style="font-size: var(--text-xl); color: var(--color-text-secondary); margin: 0;">[합성함수와 친해지기_001]</p>
+  </div>
+
+  <p>오늘부터 합성함수와 친해지는 시간을 가져 보려고 해.</p>
+  <p>합성함수가 뭐길래 이렇게 별도 시리즈를 만들 정도일까? 아빠가 이런저런 문제를 풀어보니, 합성함수를 이용한 문제가 꽤 많고, 솔직히 말하면 꽤 어려워. 왜 어렵냐고? 합성함수를 막상 그려 보려고 하면, 잘 안 되거든. 머릿속에 그림이 잘 안 떠올라.</p>
+  <p>그래서 시리즈 첫 편에서는 "<strong>합성함수를 어떻게 그리느냐</strong>"를 같이 해 보려고 해.</p>
+
+  <div class="key-message">
+    <div class="key-message-icon">💡</div>
+    <div class="key-message-text">미리 결론을 말해줄게. <strong>N축? 한 번쯤 들어봤을 거야. 대치동 어둠의 스킬이라고. 좋은 도구이긴 한데, 아빠 생각에는 더 본질적인 방법이 있어. "꺾인 점을 찾아서, 개미의 눈으로 본다."</strong> 오늘은 이걸 같이 해 볼 거야.</div>
+  </div>
+
+  <p>그리고 이 시리즈에는 또 하나의 어둠의 스킬이 깔려 있어. 바로 <strong>라이프니츠식 미분</strong>. 이건 2편부터 본격 등장해. 지금은 이름만 알아두자.</p>
+
+  <section class="reveal">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">합성함수의 정의 — "두 단계 변환기"</h2>
+    </div>
+    <p>먼저 합성함수가 뭔지부터 보고 가자. 보통 이렇게 표시해.</p>
+    
+    <div class="math-hero">
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/%ED%95%A9%EC%84%B1%ED%95%A8%EC%88%98_001/formula_001.png" alt="y = f(g(x))" style="max-width: 100%; height: auto; margin-bottom: var(--space-3);">
+      <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin: 0;">y = f(g(x)) — 합성함수의 정의식</p>
+    </div>
+    
+    <p>이게 무슨 뜻이냐고? 아빠는 학생에게 설명할 때 항상 이런 그림을 떠올려. <strong>위와 아래가 뚫린 박스 두 개를 위아래로 쌓은 모양</strong>. 맨 위에서 $x$를 떨어뜨리면, $x$가 첫 번째 박스($g$)를 통과하면서 값이 바뀌고, 그 바뀐 값이 다시 두 번째 박스($f$)를 통과하면서 한 번 더 바뀌는 거지.</p>
+    <p>여기서 가장 중요한 한 가지가 있어. 잘 들어봐.</p>
+    
+    <blockquote style="border-left: 4px solid var(--color-primary); margin: var(--space-6) 0; background: var(--color-primary-bg); padding: var(--space-6); border-radius: 0 var(--radius-md) var(--radius-md) 0;">
+      <p style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: var(--space-2);"><strong>$x$가 변한다고 해서, $f$가 곧바로 변하는 건 아니야.</strong></p>
+      <p style="margin: 0;">$x$는 일단 $g$를 변화시키고, 그렇게 변화된 $g(x)$가 결국 $f$를 변화시키는 거야.</p>
+    </blockquote>
+    
+    <p>이건 합성함수의 "<strong>정의</strong>"에 대한 이야기야. 그래서 합성함수 문제는 결국 "<strong>정의</strong>"를 묻는 문제이고, 그래서 아빠는 합성함수 문제를 정말 정말 좋은 문제라고 생각해. 무슨 비법이나 잔재주가 통하지 않거든. 정의를 모르면 못 풀어.</p>
+  </section>
+
+  <section class="reveal">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">가장 단순한 방법 — 0.01씩 다 대입하기 (그러나 노가다)</h2>
+    </div>
+    <p>자, 이제 본론. 합성함수를 어떻게 그리지?</p>
+    <p>가장 단순한 방법은 이거야. <strong>그냥 $x$에 0.01, 0.02, 0.03... 다 대입해서 $f(g(x))$를 다 구해보는 거.</strong></p>
+    
+    <div class="trap-box">
+      <p style="margin: 0;">당연히 가능해. 점을 충분히 많이 찍으면 그래프가 나와. 그런데 어때? <strong>노가다지?</strong> 시험장에서 이렇게 풀 시간 없어. 비효율적이야.</p>
+    </div>
+    
+    <p>그래서 우리가 해야 할 일은 단순해. <strong>노가다를 피하면서도 그래프 모양을 잡는 것.</strong> 그러려면 두 가지 아이디어가 필요해.</p>
+  </section>
+
+  <section class="reveal">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">첫 번째 아이디어 — 꺾인 점만 찾자</h2>
+    </div>
+    <p>그래프의 <strong>모양</strong>은 사실 <strong>꺾인 점들로 결정</strong>돼. 직선이든 곡선이든, <strong>변화 패턴이 바뀌는 순간</strong>만 잡으면 그 사이는 자연스럽게 연결돼.</p>
+    <p>여기서 "꺾인 점"을 수학적으로 표현하면:</p>
+    
+    <div class="math-highlight visible">
+      <div style="font-weight: 700; font-size: var(--text-xl); text-align: center; color: var(--color-primary-dark);">변화율이 달라지는 점 = 변화 패턴이 달라지는 점</div>
+    </div>
+    
+    <p>직선에서는 기울기가 바뀌는 점이고, 곡선에서는 증가에서 감소로(또는 그 반대로) 바뀌는 점, 또는 곡률이 바뀌는 점이야. 다 같은 말이야 — <strong>"무언가 변화 패턴이 바뀌는 순간"</strong>.</p>
+    <p>꺾인 점만 찾으면, 시작점·끝점과 함께 그것들을 <strong>대충 연결</strong>만 해도 합성함수의 대략적인 모양이 나와. 그리고 시험 문제는 보통 그 정도만 알아도 풀 수 있게 출제돼. 정확히 그릴 필요? 거의 없어.</p>
+  </section>
+
+  <section class="reveal">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">두 번째 아이디어 — 개미의 눈</h2>
+    </div>
+    <p>이게 진짜 핵심이야. 잘 따라와.</p>
+    <p>우리가 평소에 그래프를 그릴 때는 자동으로 <strong>"왼쪽에서 오른쪽으로"</strong> 본다는 전제가 깔려 있어. 예를 들어 $y = x$ 그래프를 보면 우리는 "증가하는 그래프"라고 자동으로 말해.</p>
+    <p>그런데 잘 생각해 봐. 그게 정말 그 그래프의 본질일까?</p>
+    
+    <blockquote style="border-left: 4px solid var(--color-accent); margin: var(--space-6) 0; background: var(--color-accent-bg); padding: var(--space-6); border-radius: 0 var(--radius-md) var(--radius-md) 0;">
+      <p style="margin-bottom: var(--space-4);"><strong>그 그래프 위를 기어가는 개미의 입장에서 생각해 보자.</strong></p>
+      <p style="margin-bottom: var(--space-4);">개미가 왼쪽에서 오른쪽으로 가면 → "오르고 있다" → 증가 그래프.<br>그런데 어느 날 베짱이 친구가 원점에서 "야, 친구야 이리 와봐~"라고 부르면? 개미는 오른쪽에서 왼쪽으로 거꾸로 걸어가야 해. 그 순간 개미는 <strong>산을 내려가고 있는</strong> 거야. 즉 감소 그래프!</p>
+      <p style="margin: 0;"><strong>같은 그래프인데, 개미의 진행 방향에 따라 증가도 되고 감소도 되는 거야.</strong></p>
+    </blockquote>
+    
+    <p>평범한 함수 $f(x)$를 그릴 때는 개미가 왼쪽 → 오른쪽으로만 간다고 봐도 돼. 문제 없어.</p>
+    <p>그런데 합성함수 $f(g(x))$를 그릴 때는 달라. <strong>$f$의 입력자리에 들어가는 게 $g(x)$의 값</strong>이잖아? 그런데 $g(x)$의 값은 $x$가 증가해도 <strong>증가할 수도 있고, 감소할 수도 있어.</strong> $g$가 감소 구간이라면, $f$ 위의 개미는 <strong>거꾸로 걸어가야 해.</strong></p>
+
+    <div class="chalkboard" id="chalk1">
+      <div class="chalk-tray"><div class="chalk-tray-dot" style="background:#ebe6dc"></div><div class="chalk-tray-dot" style="background:#fcd34d"></div><div class="chalk-tray-dot" style="background:#f87171"></div><div class="chalk-tray-dot" style="background:#93c5fd"></div></div>
+    </div>
+
+    <p>그래서 합성함수를 그릴 때는 <strong>"개미의 진행 방향을 자유롭게 바꿔서 보는 상대적인 눈"</strong>이 꼭 필요해. 아빠는 이걸 <strong>"개미의 눈"</strong>이라고 부를 거야.</p>
+  </section>
+
+  <section class="reveal">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2 class="section-title">두 아이디어를 적용한 정석 — 표로 풀어보기</h2>
+    </div>
+    <p>자, 두 아이디어를 합쳐서 실제 문제에 적용해 보자. 좋은책 신사고 고등수학 교과서 224p에 나오는 문제야.</p>
+    
+    <blockquote style="border-left: 4px solid var(--color-border-strong); margin: var(--space-6) 0; background: var(--color-bg-subtle); padding: var(--space-6); border-radius: 0 var(--radius-md) var(--radius-md) 0;">
+      <p style="margin-bottom: var(--space-2);"><strong>집합 $X = \{x \mid 0 \le x \le 2\}$에 대해, $X$에서 $X$로의 두 함수 $y = f(x)$, $y = g(x)$가 있다.</strong></p>
+      <p style="margin-bottom: var(--space-2);"><strong>$f(x)$는 $\Lambda$자 모양 (0,0)–(1,2)–(2,0)이고, $g(x)$는 $V$자 모양 (0,1)–(1,0)–(2,2)이다.</strong></p>
+      <p style="margin: 0;"><strong>$y = (f \circ g)(x) = f(g(x))$를 그려라.</strong></p>
+    </blockquote>
+
+    <figure style="text-align: center; margin: var(--space-8) 0;">
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/%ED%95%A9%EC%84%B1%ED%95%A8%EC%88%98_001/original_001_textbook_problem.png" alt="좋은책 신사고 고등수학 교과서 224p 합성함수 그래프 문제" style="border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+      <figcaption style="margin-top: var(--space-3); color: var(--color-text-secondary); font-size: var(--text-sm);">좋은책 신사고 고등수학 교과서 224p 합성함수 그래프 문제</figcaption>
+    </figure>
+
+    <p>자, 표로 풀어보자. <strong>세 행짜리 표</strong>를 만들 거야: $x$의 변화율 / $g(x)$의 변화율 / $f(g(x))$의 변화율.</p>
+
+    <table class="table-interactive">
+      <thead>
+        <tr>
+          <th width="30%">단계</th>
+          <th width="70%">내용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1단계:</strong> $x$의 변화율</td>
+          <td style="text-align: left;">$0 \to 2$ 단순 증가, 변곡점 없음. 패스.</td>
+        </tr>
+        <tr>
+          <td><strong>2단계:</strong> $g(x)$의 변화율</td>
+          <td style="text-align: left;">$x = 1$에서 꺾임 ($V$자 꼭짓점). $(1, 0)$ 확정.</td>
+        </tr>
+        <tr class="pattern-found">
+          <td><strong>3단계:</strong> $f(g(x))$의 변화율 ⭐</td>
+          <td style="text-align: left;"><strong>개미의 눈 등장.</strong> 구간 ① 패스, 구간 ② 정상 통과 → $(\frac{3}{2}, 2)$ 발견.</td>
+        </tr>
+        <tr>
+          <td><strong>4단계:</strong> 시작·끝점</td>
+          <td style="text-align: left;">$(0, 2)$, $(2, 0)$</td>
+        </tr>
+        <tr>
+          <td><strong>5단계:</strong> 4점 연결</td>
+          <td style="text-align: left;">$M$자 완성</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <figure style="text-align: center; margin: var(--space-8) 0;">
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/%ED%95%A9%EC%84%B1%ED%95%A8%EC%88%98_001/graph_001_textbook_M.png" alt="합성함수 그리기 3단계" style="border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+      <figcaption style="margin-top: var(--space-3); color: var(--color-text-secondary); font-size: var(--text-sm);">합성함수 그리기 3단계 — 주어진 함수 / 꺾인점 4개 / M자 완성</figcaption>
+    </figure>
+
+    <h3 style="font-size: var(--text-xl); color: var(--color-primary-dark); margin-top: var(--space-8); margin-bottom: var(--space-4);">1단계: $x$의 변화율 체크</h3>
+    <p>$x$는 $0 \to 2$로 단순 증가. 변곡점 없음. <strong>패스.</strong></p>
+
+    <h3 style="font-size: var(--text-xl); color: var(--color-primary-dark); margin-top: var(--space-8); margin-bottom: var(--space-4);">2단계: $g(x)$의 변화율 체크</h3>
+    <p>$g(x)$는 $V$자라서 $x = 1$에서 꺾여. 그러니까 $x = 1$이 <strong>첫 번째 후보 꺾인점.</strong></p>
+    <p>좌표 계산: $x = 1$일 때 $g(1) = 0$, $f(g(1)) = f(0) = 0$. 그래서 $(1, 0)$ 확정.</p>
+    <p>이제 $x$ 행에도 $0$과 $2$ 사이에 <strong>$x = 1$을 체크 표시</strong>해두자.</p>
+
+    <h3 style="font-size: var(--text-xl); color: var(--color-primary-dark); margin-top: var(--space-8); margin-bottom: var(--space-4);">3단계: $f(g(x))$의 변화율 체크 — 개미의 눈 등장</h3>
+    <p>$x = 1$로 구간이 둘로 나뉘었어. 각 구간에서 <strong>$f$ 위에 개미를 올려놓고</strong> 확인하자.</p>
+
+    <p style="font-weight: 700; margin-top: var(--space-6);">구간 ①: $x = 0 \to 1$</p>
+    <ul>
+      <li>$g(x)$는 $g(0) = 1$ 에서 $g(1) = 0$ 으로 감소.</li>
+      <li>즉, $f$ 위의 개미는 <strong>"$1$에서 $0$으로 거꾸로 걷기"</strong>. 베짱이 친구가 원점에서 부르고 있는 거야.</li>
+      <li>$f$ 그래프에서 $x = 0$부터 $x = 1$ 구간은 단조 직선이야. 꺾이는 점 없어.</li>
+      <li>→ <strong>숨은 꺾인점 없음. 패스.</strong></li>
+    </ul>
+
+    <p style="font-weight: 700; margin-top: var(--space-6);">구간 ②: $x = 1 \to 2$</p>
+    <ul>
+      <li>$g(x)$는 $g(1) = 0$ 에서 $g(2) = 2$ 로 증가.</li>
+      <li>즉, $f$ 위의 개미는 <strong>"$0$에서 $2$로 정방향 걷기"</strong>. 영차영차 산을 오르는 모양.</li>
+      <li>그런데! $f$ 그래프에서 개미가 $0$에서 출발해서 $2$까지 가는 동안, <strong>중간 $x = 1$에서 정상을 지나잖아?</strong> 산을 오르다가 정상을 지나서는 산을 내려와.</li>
+      <li>→ <strong>숨은 꺾인점 발견!</strong> 정상 통과 = 변화 패턴 변화.</li>
+    </ul>
+
+    <div class="trap-box">
+      <p style="margin-bottom: var(--space-2);">시작점·끝점만 보면 구간 ②의 $f(g(x))$는 $0 \to 0$이야.<br>그래서 "그냥 0에 머물러 있구나"라고 생각하기 쉬워.</p>
+      <p style="margin-bottom: var(--space-2);">하지만 중간에 $g(x) = 1$이 되는 순간, $f$의 정상을 통과해!</p>
+      <p style="margin: 0; font-weight: bold; color: var(--color-trap);">숨은 꺾인점 $(\frac{3}{2}, 2)$를 놓치면 안 돼.</p>
+    </div>
+
+    <p>이제 그 꺾인점이 합성함수 그래프에서 <strong>어디인지</strong> 찾아야 해. $g(x) = 1$이 되는 $x$값이 정답이야. $g$가 $0 \to 2$로 직선으로 증가하니까, 정확히 중간 $x = \frac{3}{2}$에서 $g = 1$.</p>
+    <p>좌표 계산: $x = \frac{3}{2}$일 때 $g(\frac{3}{2}) = 1$, $f(g(\frac{3}{2})) = f(1) = 2$. 그래서 $(\frac{3}{2}, 2)$ 확정.</p>
+
+    <h3 style="font-size: var(--text-xl); color: var(--color-primary-dark); margin-top: var(--space-8); margin-bottom: var(--space-4);">4단계: 시작점·끝점 체크</h3>
+    <ul>
+      <li>$x = 0$: $g(0) = 1$, $f(1) = 2$. → $(0, 2)$</li>
+      <li>$x = 2$: $g(2) = 2$, $f(2) = 0$. → $(2, 0)$</li>
+    </ul>
+
+    <h3 style="font-size: var(--text-xl); color: var(--color-primary-dark); margin-top: var(--space-8); margin-bottom: var(--space-4);">5단계: 4점 연결</h3>
+    <figure style="text-align: center; margin: var(--space-6) 0;">
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/%ED%95%A9%EC%84%B1%ED%95%A8%EC%88%98_001/formula_002.png" alt="4점 연결" style="border-radius: var(--radius-md);">
+      <figcaption style="margin-top: var(--space-3); color: var(--color-text-secondary); font-size: var(--text-sm);">4점 연결: $(0,2) \to (1,0) \to (\frac{3}{2},2) \to (2,0)$</figcaption>
+    </figure>
+    <p>이제 4개 점을 다 모았어:</p>
+    
+    <div class="math-highlight visible">
+      <div style="font-weight: 700; font-size: var(--text-xl); text-align: center; color: var(--color-primary-dark);">$(0,\,2) \;\to\; (1,\,0) \;\to\; \left(\frac{3}{2},\,2\right) \;\to\; (2,\,0)$</div>
+    </div>
+
+    <p>이 문제는 $f$와 $g$가 모두 직선이라서, 4점을 직선으로 연결하면 정확한 그래프가 나와. <strong>$M$자 모양</strong> (좌측이 좀 더 넓은 비대칭 $M$자).</p>
+    <p>어때? 이게 끝이야. 노가다 없이, 정의역 안에서 변화 패턴이 바뀌는 4개의 순간만 잡았는데, 합성함수 모양이 완성됐어.</p>
+  </section>
+
+  <section class="reveal">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2 class="section-title">그래서 N축은 뭐냐고? 한 번 짚고 가자</h2>
+    </div>
+    <p>여기까지 읽고 <strong>"어, 그러면 N축은 왜 있는 거야?"</strong>라고 궁금할 수 있어. 짧게 설명할게.</p>
+    <p>N축은 <strong>속함수 $g(x)$를 90도 돌려서 그리는</strong> 방법이야. 왜 90도 돌리냐면, $g$의 출력 방향과 $f$의 입력 방향을 시각적으로 일치시키기 위해서. 합성함수가 헷갈리는 진짜 이유 — 출력이 다시 입력으로 들어가야 하는 그 축의 전환 — 을 종이 위에서 해결해주는 영리한 방법이야.</p>
+    <p>좋은 도구야. 진짜 좋은 도구야. 그런데 아빠가 권하지 않는 이유는 두 가지야.</p>
+    <p>첫째, <strong>너무 기계적이 되기 쉬워.</strong> 정확히 자처럼 그래야 답이 맞는데, 실전에선 그렇게 정확히 그리기 어렵고 시간도 오래 걸려.</p>
+    <p>둘째, <strong>머릿속에 잔상이 남아.</strong> N축 그림이 머리에서 안 사라지고, 평범한 함수 문제도 자꾸 N축으로 보려고 하게 돼.</p>
+
+    <div class="examiner-block">
+      <div class="examiner-title">📊 N축 vs 꺾인 점 + 개미의 눈</div>
+      <table class="table-interactive" style="margin-top: var(--space-4); margin-bottom: 0;">
+        <thead>
+          <tr>
+            <th width="35%">도구</th>
+            <th width="35%">장점</th>
+            <th width="30%">단점</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>N축</strong></td>
+            <td>직관적, 시각화된 풀이</td>
+            <td>기계적, 잔상이 남음</td>
+          </tr>
+          <tr class="pattern-found">
+            <td><strong>꺾인 점 + 개미의 눈 ⭐</strong></td>
+            <td>도구 불필요, 정의에 충실, 다음 편들과 연결</td>
+            <td>처음엔 머릿속 시각화 연습 필요</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>그에 비해 <strong>"꺾인 점 + 개미의 눈"</strong>은 어때? 도구가 필요 없어. 종이도 거의 안 써. <strong>머릿속에서 직접 "$f$ 위에 개미를 올려놓고 어떻게 걷는지"만 상상하면 돼.</strong> 그리고 이 방식은 <strong>합성함수의 정의(두 단계 변환)를 그대로 따라가는 방법</strong>이라서, 시리즈 다음 편들(미분, 미분가능성, 적분)과도 자연스럽게 연결돼.</p>
+    <p>그래서 아빠는 이렇게 말할 거야 — <strong>N축? 갖다 버려. 꺾인 점을 찾아서, 개미의 눈으로 봐.</strong></p>
+  </section>
+
+  <section class="reveal">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2 class="section-title">정리, 그리고 다음 편 예고</h2>
+    </div>
+    
+    <div class="chalkboard" id="chalk2">
+      <div class="chalk-tray"><div class="chalk-tray-dot" style="background:#ebe6dc"></div><div class="chalk-tray-dot" style="background:#fcd34d"></div><div class="chalk-tray-dot" style="background:#f87171"></div><div class="chalk-tray-dot" style="background:#93c5fd"></div></div>
+    </div>
+
+    <p>오늘 핵심을 다시 정리하면:</p>
+    <ul>
+      <li><strong>첫째</strong>, 합성함수는 <strong>두 단계 변환기</strong>. $x \to g(x) \to f(g(x))$. $x$가 직접 $f$를 흔드는 게 아니라, $g$를 먼저 흔들고, 그 흔들림이 $f$로 전달.</li>
+      <li><strong>둘째</strong>, <strong>꺾인 점만 찾으면 충분해.</strong> 변화 패턴이 바뀌는 순간들 + 시작·끝점만 잡고 연결. 노가다 필요 없음.</li>
+      <li><strong>셋째</strong>, <strong>개미의 눈으로 봐.</strong> $g$가 감소하는 구간에서는 $f$ 위의 개미가 거꾸로 걷고 있어. 그 상대적인 시점 전환을 자유자재로 할 줄 알면 합성함수가 정말 쉬워져.</li>
+    </ul>
+
+    <p>다음 편에서는 본격적으로 <strong>합성함수의 미분(체인룰)</strong>을 다룰 거야. 그리고 거기서 두 번째 어둠의 스킬, <strong>라이프니츠</strong>가 본격 등장해.</p>
+
+    <div class="math-hero" style="background: linear-gradient(135deg, var(--color-examiner-bg), #fff); border-color: var(--color-examiner); box-shadow: 0 4px 15px rgba(124, 58, 237, 0.15);">
+      <div style="font-size: var(--text-3xl); font-weight: 700; color: var(--color-examiner); margin-bottom: var(--space-4);">
+        $$ \frac{dt}{dt} $$
+      </div>
+      <div style="font-weight: 700; color: var(--color-text);">"$\frac{dt}{dt}$를 곱하는 마법"이라는 게 뭔지 보여줄게. 진짜 신기해.</div>
+    </div>
+
+    <p style="margin-top: var(--space-8); text-align: center; color: var(--color-text-secondary);">오늘은 여기까지~ 어때, 합성함수가 살짝 친근해진 것 같아?</p>
+  </section>
+
+  <script>
+  function makeCharSpans(container, text, size, bold) {
+    var spans = [];
+    for (var i = 0; i < text.length; i++) {
+      var sp = document.createElement('span');
+      sp.className = 'ch';
+      sp.textContent = text[i];
+      if (size) sp.style.fontSize = size + 'px';
+      if (bold) sp.style.fontWeight = '700';
+
+      var rot = (Math.random() - 0.5) * 2.5;
+      var scl = 0.97 + Math.random() * 0.06;
+      var ty = (Math.random() - 0.5) * 1.5;
+      sp.style.transform = 'rotate(' + rot + 'deg) scale(' + scl + ') translateY(' + ty + 'px)';
+
+      if (text[i] === ' ') sp.style.width = '0.3em';
+      container.appendChild(sp);
+      spans.push(sp);
+    }
+    return spans;
+  }
+
+  function animateChars(spans, speed, dustColor, board) {
+    return new Promise(function(resolve) {
+      var i = 0;
+      var iv = setInterval(function() {
+        if (i < spans.length) {
+          spans[i].classList.add('on');
+          if (i % 3 === 0 && spans[i].textContent !== ' ') {
+            spawnDust(spans[i], dustColor, board);
+          }
+          i++;
+        } else {
+          clearInterval(iv);
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  function spawnDust(charEl, color, board) {
+    var rect = charEl.getBoundingClientRect();
+    var bdRect = board.getBoundingClientRect();
+    for (var i = 0; i < 2; i++) {
+      var d = document.createElement('div');
+      d.className = 'chalk-dust';
+      var sz = 1.5 + Math.random() * 2;
+      d.style.width = sz + 'px';
+      d.style.height = sz + 'px';
+      d.style.background = color;
+      d.style.left = (rect.right - bdRect.left) + 'px';
+      d.style.top = (rect.bottom - bdRect.top - 6) + 'px';
+      d.style.setProperty('--dx', (Math.random() * 10 - 5) + 'px');
+      d.style.setProperty('--dy', (4 + Math.random() * 8) + 'px');
+      board.appendChild(d);
+      setTimeout(function(el) {
+        return function() { if (el.parentNode) el.parentNode.removeChild(el); };
+      }(d), 1300);
+    }
+  }
+
+  async function runChalkboard(board, script) {
+    for (let i = 0; i < script.length; i++) {
+      let step = script[i];
+      if (step.type === 'pause') {
+        await new Promise(r => setTimeout(r, step.ms));
+      } else if (step.type === 'line') {
+        let row = document.createElement('div');
+        row.className = 'chalk-row ' + step.color;
+        board.appendChild(row);
+        let spans = makeCharSpans(row, step.text, step.size, step.bold);
+        
+        let dustColor = '#fff';
+        if(step.color === 'chalk-y') dustColor = '#fcd34d';
+        else if(step.color === 'chalk-r') dustColor = '#f87171';
+        else if(step.color === 'chalk-b') dustColor = '#93c5fd';
+
+        await animateChars(spans, 32, dustColor, board);
+        await new Promise(r => setTimeout(r, 250));
+      }
+    }
+  }
+
+  var chalkScript1 = [
+    { type: 'line', color: 'chalk-w', text: '합성함수의 비밀:', size: 26, bold: true },
+    { type: 'pause', ms: 300 },
+    { type: 'line', color: 'chalk-y', text: '"개미의 진행 방향"을 바꿔라!', size: 28, bold: true },
+    { type: 'pause', ms: 300 },
+    { type: 'line', color: 'chalk-r', text: 'g가 감소하면 → 개미는 거꾸로 걷는다', size: 22 },
+    { type: 'pause', ms: 200 },
+    { type: 'line', color: 'chalk-b', text: '같은 그래프, 다른 시점 = 개미의 눈', size: 22 }
+  ];
+
+  var chalkScript2 = [
+    { type: 'line', color: 'chalk-w', text: '합성함수와 친해지기 — 1편 정리', size: 26, bold: true },
+    { type: 'pause', ms: 300 },
+    { type: 'line', color: 'chalk-y', text: '① 두 단계 변환기 (x → g → f)', size: 24 },
+    { type: 'pause', ms: 200 },
+    { type: 'line', color: 'chalk-r', text: '② 꺾인 점만 찾자 (노가다 X)', size: 24 },
+    { type: 'pause', ms: 200 },
+    { type: 'line', color: 'chalk-b', text: '③ 개미의 눈으로 봐', size: 24 }
+  ];
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var chalkObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !entry.target.dataset.played) {
+          entry.target.dataset.played = 'true';
+          if(entry.target.id === 'chalk1') runChalkboard(entry.target, chalkScript1);
+          if(entry.target.id === 'chalk2') runChalkboard(entry.target, chalkScript2);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.chalkboard').forEach(function(el) {
+      chalkObserver.observe(el);
+    });
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      observer.observe(el);
+    });
+  });
+  </script>
+</div>
