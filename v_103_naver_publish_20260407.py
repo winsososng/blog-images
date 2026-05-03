@@ -24,6 +24,12 @@
   pip install selenium undetected-chromedriver pyperclip keyboard
 """
 
+import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # ═══════════════════════════════════════════════════════════
 # 🔥 하드코딩 설정 - 여기만 수정하세요!
 # ═══════════════════════════════════════════════════════════
@@ -43,12 +49,6 @@ if not AUTO_LOGIN_ID or not AUTO_LOGIN_PW:
 CHROME_VERSION = 146  # Chrome 버전 (chrome://version 에서 확인)
 
 # ═══════════════════════════════════════════════════════════
-
-import json
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
 import time
 import os
 import sys
