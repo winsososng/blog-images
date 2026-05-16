@@ -1,0 +1,620 @@
+<div class="blog-post-container" style="max-width: 720px; margin: 0 auto;">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Hi+Melody&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ── Primary ── */
+  --color-primary: #2563EB;
+  --color-primary-light: #3B82F6;
+  --color-primary-dark: #1D4ED8;
+  --color-primary-bg: #EFF6FF;
+
+  /* ── Accent ── */
+  --color-accent: #F59E0B;
+  --color-accent-light: #FCD34D;
+  --color-accent-dark: #D97706;
+  --color-accent-bg: #FFFBEB;
+
+  /* ── Semantic ── */
+  --color-success: #10B981;
+  --color-danger: #DC2626;
+  --color-warning: #F97316;
+  --color-info: #6366F1;
+
+  /* ── Neutral ── */
+  --color-text: #1E293B;
+  --color-text-secondary: #64748B;
+  --color-text-muted: #94A3B8;
+  --color-bg: #FFFFFF;
+  --color-bg-subtle: #F8FAFC;
+  --color-bg-card: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+
+  /* ── 폰트 패밀리 ── */
+  --font-heading: 'Pretendard', -apple-system, sans-serif;
+  --font-body: 'Pretendard', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'D2Coding', monospace;
+  --font-accent: 'RIDIBatang', 'Noto Serif KR', serif;
+
+  /* ── 폰트 크기 ── */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* ── 행간 ── */
+  --leading-tight: 1.4;
+  --leading-normal: 1.8;
+  --leading-relaxed: 2.0;
+
+  /* ── 간격 ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* ── 둥근 모서리 ── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ── 그림자 ── */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+  --shadow-glow: 0 0 20px rgba(37,99,235,0.15);
+}
+
+.blog-post-container {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+}
+
+/* ── 스크롤 등장 ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 섹션 헤더 ── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.section-number {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  opacity: 0.3;
+  font-family: var(--font-mono);
+}
+
+.section-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ── 핵심 메시지 ── */
+.key-message {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-accent-bg);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-accent);
+  margin: var(--space-8) 0;
+}
+
+.key-message-icon {
+  font-size: var(--text-2xl);
+  flex-shrink: 0;
+}
+
+.key-message-text {
+  font-family: var(--font-accent);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* ── 탭 컴포넌트 ── */
+.tabs { margin: var(--space-8) 0; }
+.tab-buttons { display: flex; border-bottom: 2px solid var(--color-border); gap: 0; }
+.tab-btn { padding: var(--space-3) var(--space-6); border: none; background: none; cursor: pointer; font-weight: 500; color: var(--color-text-secondary); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s ease; font-size: var(--text-base); }
+.tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 700; }
+/* 컬러 적용 */
+.tab-btn[data-color="blue"].active { color: #2563EB; border-bottom-color: #2563EB; }
+.tab-btn[data-color="green"].active { color: #16A34A; border-bottom-color: #16A34A; }
+.tab-btn[data-color="amber"].active { color: #F59E0B; border-bottom-color: #F59E0B; }
+.tab-btn[data-color="red"].active { color: #DC2626; border-bottom-color: #DC2626; }
+
+.tab-btn:hover:not(.active) { color: var(--color-text); background: var(--color-bg-subtle); }
+.tab-panel { display: none; padding: var(--space-6) 0; animation: fadeIn 0.3s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── 이미지 스타일 ── */
+.post-image { max-width: 100%; height: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: block; margin: var(--space-6) auto; }
+.post-image.formula { max-width: 600px; }
+.post-image.graph { max-width: 500px; }
+.image-caption { text-align: center; font-size: var(--text-sm); color: var(--color-text-secondary); margin-top: -var(--space-4); margin-bottom: var(--space-8); }
+
+/* ── 수식 강조 ── */
+.math-highlight { display: block; padding: var(--space-6) var(--space-8); margin: var(--space-8) 0; background: var(--color-primary-bg); border-left: 4px solid var(--color-primary); border-radius: var(--radius-md); position: relative; overflow: hidden; }
+.math-highlight.visible { animation: mathGlow 1.5s ease-out; }
+@keyframes mathGlow { 0% { box-shadow: 0 0 0 rgba(37,99,235,0); } 30% { box-shadow: 0 0 30px rgba(37,99,235,0.2); } 100% { box-shadow: var(--shadow-sm); } }
+.math-hero { text-align: center; padding: var(--space-8) var(--space-10); margin: var(--space-8) 0; background: linear-gradient(135deg, var(--color-primary-bg), #F0F4FF); border: 2px solid var(--color-primary); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+
+/* ── 칠판 배경 ── */
+.chalkboard { background: linear-gradient(170deg, #2e4a3a 0%, #243832 40%, #1e3028 100%); border-radius: var(--radius-lg); padding: var(--space-8) var(--space-8) var(--space-12); position: relative; overflow: hidden; margin: var(--space-8) 0;}
+.chalkboard::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; border-radius: var(--radius-lg); }
+.chalk-tray { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; opacity: 0.45; }
+.chalk-tray-dot { width: 8px; height: 8px; border-radius: 50%; }
+.chalk-w .ch { color: rgba(235, 230, 220, 0.88); text-shadow: 1px 1px 2px rgba(235,230,220,0.08), -0.5px 0 1px rgba(235,230,220,0.05); }
+.chalk-y .ch { color: rgba(252, 211, 77, 0.9); text-shadow: 1px 1px 2px rgba(252,211,77,0.08); }
+.chalk-r .ch { color: rgba(248, 113, 113, 0.88); text-shadow: 1px 1px 2px rgba(248,113,113,0.08); }
+.chalk-b .ch { color: rgba(147, 197, 253, 0.88); text-shadow: 1px 1px 2px rgba(147,197,253,0.08); }
+.chalk-row { font-size: 22px; line-height: 2.1; margin-bottom: 0.5rem; position: relative; white-space: pre-wrap; display: flex; flex-wrap: wrap; align-items: baseline; }
+.ch { display: inline-block; opacity: 0; font-family: 'Nanum Pen Script', 'Hi Melody', 'Gaegu', cursive; }
+.ch.on { opacity: 1; }
+.chalk-dust { position: absolute; border-radius: 50%; pointer-events: none; animation: dustFall 1.2s ease-out forwards; }
+@keyframes dustFall { 0% { opacity: 0.5; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)); } }
+
+/* ── 아코디언 컴포넌트 ── */
+.accordion { margin: var(--space-8) 0; }
+.accordion-item { border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-4); overflow: hidden; }
+.accordion-header { background: var(--color-bg-subtle); padding: var(--space-4) var(--space-6); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: var(--color-text); }
+.accordion-header:hover { background: var(--color-primary-bg); }
+.accordion-content { padding: 0 var(--space-6); max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; background: var(--color-bg); }
+.accordion-item.active .accordion-content { padding: var(--space-4) var(--space-6); max-height: 200px; }
+.accordion-icon { transition: transform 0.3s ease; }
+.accordion-item.active .accordion-icon { transform: rotate(180deg); }
+
+/* 인용 박스 */
+.quote-box {
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-bg-subtle);
+  padding: var(--space-4) var(--space-6);
+  margin: var(--space-6) 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+p { margin-bottom: var(--space-4); }
+</style>
+
+<!-- 본문 시작 -->
+
+<div class="reveal">
+  <p>오늘은 합성함수와 친해지기 여섯 번째 시간이야~</p>
+  <p>지난 5편 기억나? <strong>"식은 하나인데 4단으로 변신하는 신기한 합성함수"</strong> 살펴봤지~</p>
+  <p>g(x) 그래프까지 멋지게 그려놓고 끝났는데… 사실 그게 끝이 아니었어.</p>
+  <p>오늘은 <strong>드디어 답까지 계산</strong>해보자!</p>
+
+  <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_006/original_002_gx_graph.png" alt="5편에서 완성한 g(x) 그래프" class="post-image graph">
+  <div class="image-caption">5편에서 완성한 g(x) 그래프</div>
+
+  <p>이 그래프, 다시 봐도 우아하지?</p>
+
+  <div class="key-message">
+    <div class="key-message-icon">💡</div>
+    <div class="key-message-text">
+      <strong>작은 정정:</strong> 지난 5편에서 그래프 마지막에 점을 설명하면서 아빠가 살짝 헷갈리게 말했어. <strong>g(-1) = 1, g(1) = 1</strong> 이 정확한 값이야. 두 채워진 점이 똑같이 높이 1이지~ (그래프에 그려진 점 (1, 2)는 2x²의 시작 위치인 <strong>빈 점</strong>이야.) 헷갈렸으면 미안~
+    </div>
+  </div>
+
+  <p>자, 이걸로 정말 끝장을 보자~</p>
+</div>
+
+<!-- 섹션 1 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">5편 끝났을 때 우리 상태</h2>
+  </div>
+  <p>먼저 5편에서 어디까지 왔는지 정리해볼까?</p>
+  <ul>
+    <li>f(x)는 ax³ + bx 꼴인 3차함수 (원점대칭)</li>
+    <li><strong>f(-1) = 0, f(1) = 0</strong> 이라는 조건이 자동으로 따라옴</li>
+    <li>따라서 <strong>a + b = 0</strong>, 즉 <strong>b = -a</strong></li>
+  </ul>
+  <p>여기까지 왔어. 그러니깐 f(x)는 결국 <strong>f(x) = ax³ - ax = ax(x² - 1)</strong> 꼴.</p>
+  <p><strong>근데 아직 a 값을 모르네…</strong></p>
+  <p>미지수가 하나 남았다는 거야. 이 a를 잡으려면 조건 하나가 더 필요해. 자, 그 조건이 뭘까?</p>
+</section>
+
+<!-- 섹션 2 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">추가 조건 — 문제 끝에 숨어있던 한 줄</h2>
+  </div>
+  <p>문제 끝에 이런 조건이 있었어.</p>
+  
+  <div class="quote-box">
+    "y = g(x)의 그래프와 직선 y = k가 만나는 점의 개수가 1이 되도록 하는 자연수 k가 존재할 때"
+  </div>
+  
+  <p>음… 무슨 말이지? 천천히 풀어볼까?</p>
+  <p>직선 y = k 는 <strong>가로선</strong>이야. k 값에 따라 위로 올라갔다 내려갔다 하는 가로선이지.</p>
+  <p>이 가로선이 g(x) 그래프와 <strong>딱 1번만 만나는 자연수 k가 존재한다</strong>는 거야.</p>
+  <p>어? 자연수 k 중에 그런 게 있다고?</p>
+</section>
+
+<!-- 섹션 3 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">가로선을 위아래로 움직여보자 ⭐</h2>
+  </div>
+  <p>자, 이건 그림을 보면서 가야 해. 5편에서 그린 g(x) 그래프 다시 떠올려봐.</p>
+  <ul>
+    <li>양쪽 끝(|x| &gt; 1)은 <strong>2x² 포물선 두 조각</strong>, 위로 쭉쭉 솟아오름 (양 끝 시작값은 2부터)</li>
+    <li>가운데(|x| &lt; 1)는 <strong>f(x) 곡선</strong>, 극대·극소를 가진 3차함수</li>
+    <li>x = ±1 위치엔 <strong>채워진 점 (-1, 1)과 (1, 1)</strong> 두 개</li>
+  </ul>
+  
+  <p>자, 가로선 y = k 를 자연수 k 값으로 올려보면서 만남 횟수를 세어볼까?</p>
+  
+  <div class="math-hero">
+    <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_006/formula_001_yk_simulation.png" alt="y=k 가로선 시뮬레이션" class="post-image formula" style="margin: 0 auto; box-shadow: none;">
+  </div>
+  <div class="image-caption">y = k 가로선 시뮬레이션 (k=1, 2, 3, 4)</div>
+  
+  <p><strong>k = 1일 때</strong>: 가로선이 채워진 두 점 (-1, 1)과 (1, 1)을 통과해. 그리고 f(x) 곡선과는 |x|&lt;1 구간에서 2번 만나. 총 <strong>4번</strong>.</p>
+  <p><strong>k = 2일 때</strong>: 가로선이 (1, 1)과 (-1, 1) 위로 올라갔어. f(x)와는 어떻게 될까? <strong>f(x)의 극대점에서 딱 1번 접한다면</strong>, 그 1번만 만나~ (2x² 포물선은 |x|&gt;1이라 y=2 위치엔 빈 점이라 안 만남.) 총 <strong>1번</strong> ★</p>
+  <p><strong>k = 3일 때</strong>: f(x) 영역과는 안 만남. 2x² 포물선과 양쪽으로 2번 만남. 총 <strong>2번</strong>.</p>
+  <p><strong>k = 4일 때</strong>: 마찬가지로 2x² 포물선과 2번. 총 <strong>2번</strong>.</p>
+  
+  <div class="key-message" style="border-left-color: var(--color-warning);">
+    <div class="key-message-icon">🎯</div>
+    <div class="key-message-text">
+      자연수 k 중에서 정확히 1번 만나는 건 k = 2 뿐이야~
+    </div>
+  </div>
+</section>
+
+<!-- 섹션 4 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">결정타 — f(x)의 극댓값은 정확히 2</h2>
+  </div>
+  <p>자, k = 2일 때 정확히 1번 만나려면 어떤 조건이 필요했지?</p>
+  <p><strong>f(x)의 극대점에서 가로선 y = 2 가 정확히 접해야 한다</strong>는 거였어.</p>
+  <p>다시 말해서 — <strong>f(x)의 극댓값이 정확히 2</strong>여야 해!</p>
+  <p>만약 극댓값이 2보다 크다면? k=2일 때 가로선이 극대점을 지나가서 f(x)와 2번 만나게 돼. 1번이 아니지.</p>
+  <p>만약 극댓값이 2보다 작다면? k=2일 때 가로선이 f(x)보다 위에 있어서 안 만나. 만남 0번.</p>
+  
+  <p>딱 극댓값 = 2 일 때만, k=2 가로선이 극대점에서 접하면서 정확히 1번 만남이 성립하는 거야~</p>
+
+  <!-- 칠판 판서 효과 -->
+  <div class="chalkboard" id="board-1">
+    <div class="chalk-tray">
+      <div class="chalk-tray-dot" style="background: rgba(235,230,220,0.8)"></div>
+      <div class="chalk-tray-dot" style="background: rgba(252,211,77,0.8)"></div>
+      <div class="chalk-tray-dot" style="background: rgba(248,113,113,0.8)"></div>
+    </div>
+  </div>
+
+  <p>대박이지~ 추가 조건 한 줄에서 결정적 정보가 빠져나왔어!</p>
+
+  <div class="key-message">
+    <div class="key-message-icon">✨</div>
+    <div class="key-message-text">
+      딱 극댓값 = 2 일 때만, k=2 가로선이 극대점에서 접하면서 정확히 1번 만남이 성립
+    </div>
+  </div>
+</section>
+
+<!-- 섹션 5 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">a = 3√3 — 미지수 잡기</h2>
+  </div>
+  <p>이제 f(x)의 극댓값 = 2 라는 식을 풀어서 a 값을 구해보자.</p>
+  <p>f(x) = ax³ - ax 이니깐, f'(x) = 3ax² - a = a(3x² - 1).</p>
+  <p>f'(x) = 0 이면 x = ±1/√3 = ±√3/3.</p>
+  <p>극댓값은 x = -√3/3 에서 나와 (a &gt; 0 이라고 했으니깐).</p>
+  
+  <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_006/original_003_solution_calculation.png" alt="f(-√3/3) = 2 풀이로 a = 3√3 도출" class="post-image formula">
+  <div class="image-caption">f(-√3/3) = 2 풀이로 a = 3√3 도출</div>
+  
+  <p>f(-√3/3) 을 계산해서 2와 같다고 놓으면…</p>
+  <p><strong>a = 3√3</strong> 이 딱 나와!</p>
+  <p>그래서 <strong>f(x) = 3√3 · x · (x² - 1)</strong> 로 완전히 결정됐어~</p>
+</section>
+
+<!-- 섹션 6 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <h2 class="section-title">답 계산 — 4단 변신로보트의 진짜 활용!</h2>
+  </div>
+  <p>자, 이제 진짜 답을 계산할 차례야.</p>
+  <p>문제가 묻는 건 <strong>g(-1/2) × g(2)</strong> 이지?</p>
+  <p>여기서 5편에서 배운 <strong>4단 변신로보트</strong>가 진가를 발휘해!</p>
+
+  <div class="tabs">
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="tab-g1" data-color="green">g(-1/2) 계산</button>
+      <button class="tab-btn" data-tab="tab-g2" data-color="blue">g(2) 계산</button>
+    </div>
+    
+    <div id="tab-g1" class="tab-panel active">
+      <p>-1/2 은 |x| &lt; 1 이지? 그러면 변신 ② 가 적용돼. 즉 <strong>g(-1/2) = f(-1/2)</strong> 야.</p>
+      <p>f(-1/2) = 3√3 · (-1/2) · ((-1/2)² - 1)<br>= 3√3 · (-1/2) · (-3/4)<br>= <strong>9√3 / 8</strong></p>
+    </div>
+    
+    <div id="tab-g2" class="tab-panel">
+      <p>2는 |x| &gt; 1 이지? 그러면 변신 ① 이 적용돼. 즉 <strong>g(2) = 2 · 2² = 8</strong></p>
+    </div>
+  </div>
+
+  <p><strong>최종 답:</strong></p>
+  <div class="math-hero">
+    <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_006/formula_002_final_answer.png" alt="최종 답 박스: g(-1/2) × g(2) = 9√3" class="post-image formula" style="margin: 0 auto; box-shadow: none;">
+  </div>
+  <div class="image-caption">최종 답 박스: g(-1/2) × g(2) = 9√3</div>
+  
+  <p>g(-1/2) × g(2) = (9√3 / 8) × 8 = <strong>9√3</strong></p>
+  <p>정답 <strong>5번</strong>~ 와~ 4단 변신로보트로 깔끔하게 답까지 나왔어!</p>
+</section>
+
+<!-- 섹션 7 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">07</span>
+    <h2 class="section-title">합성함수와 친해지기 시리즈, 안녕~</h2>
+  </div>
+  <p>이렇게 합성함수와 친해지기 시리즈 6편이 모두 끝났네~</p>
+  <p>함께 걸어온 길을 한 번 돌아볼까?</p>
+
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <span>1편: 합성함수 그리기</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="accordion-content">
+        <p>N축 대신 개미의 눈으로 직관적으로 합성함수 그래프를 그리는 법을 배웠어.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <span>2편: 합성함수 미분</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="accordion-content">
+        <p>체인룰과 라이프니츠 표기법의 의미를 파헤쳤지!</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <span>3편: 합성함수 미분가능성</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="accordion-content">
+        <p>부드럽게 꿰매는 법, 첨점과 미분가능성의 관계를 알아봤어.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <span>4편: 치환적분</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="accordion-content">
+        <p>치환적분이 왜 합성함수 미분의 거울인지 확인해봤지.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <span>5편: 4단 변신로보트</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="accordion-content">
+        <p>그래프 완성! 단 하나의 식이 만들어낸 우아한 그래프의 매력을 감상했지.</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <span>6편: 실전 정복 (오늘!)</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="accordion-content">
+        <p>추가 조건을 해석해서 가로선 시뮬레이션을 하고 미지수를 구한 뒤 최종 답을 냈어!</p>
+      </div>
+    </div>
+  </div>
+
+  <p>어땠어? 처음엔 합성함수가 좀 낯설었지? 그런데 이제는 좀 친해진 것 같아?</p>
+  <p>특히 오늘 본 2026 3월 교육청 28번 문제는 <strong>출제자의 센스가 정말 빛나는 문제</strong>였어. 4단 변신로보트, 진동이 사라지는 마법, 그리고 가로선 한 줄로 미지수를 잡는 우아함까지~ 수능 출제진의 내공이 느껴지는 문제였지.</p>
+
+  <div class="key-message" style="border-left-color: var(--color-success); background: #f0fdf4;">
+    <div class="key-message-icon">🎓</div>
+    <div class="key-message-text">
+      수학이 단지 답을 맞히는 게 아니라, 이런 우아한 구조를 발견하고 음미하는 학문이라는 걸 다시 한 번 느꼈네~
+    </div>
+  </div>
+
+  <p>다음 편은 또 재미있는 걸로 준비할께~</p>
+  <p>안녕~</p>
+</section>
+
+</div>
+
+<script>
+// 스크롤 등장 효과
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+});
+
+// 탭 스크립트
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var tabGroup = this.closest('.tabs');
+      tabGroup.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      tabGroup.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      tabGroup.querySelector('#' + this.dataset.tab).classList.add('active');
+    });
+  });
+});
+
+// 아코디언 스크립트
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.accordion-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var item = this.parentElement;
+      item.classList.toggle('active');
+    });
+  });
+});
+
+// 칠판 판서 효과 관련 스크립트
+function makeCharSpans(container, text, size, bold) {
+  var spans = [];
+  for (var i = 0; i < text.length; i++) {
+    var sp = document.createElement('span');
+    sp.className = 'ch';
+    sp.textContent = text[i];
+    if (size) sp.style.fontSize = size + 'px';
+    if (bold) sp.style.fontWeight = '700';
+
+    var rot = (Math.random() - 0.5) * 2.5;
+    var scl = 0.97 + Math.random() * 0.06;
+    var ty = (Math.random() - 0.5) * 1.5;
+    sp.style.transform = 'rotate(' + rot + 'deg) scale(' + scl + ') translateY(' + ty + 'px)';
+
+    if (text[i] === ' ') sp.style.width = '0.3em';
+    container.appendChild(sp);
+    spans.push(sp);
+  }
+  return spans;
+}
+
+function spawnDust(charEl, color, boardId) {
+  var board = document.getElementById(boardId);
+  var rect = charEl.getBoundingClientRect();
+  var bdRect = board.getBoundingClientRect();
+  for (var i = 0; i < 2; i++) {
+    var d = document.createElement('div');
+    d.className = 'chalk-dust';
+    var sz = 1.5 + Math.random() * 2;
+    d.style.width = sz + 'px';
+    d.style.height = sz + 'px';
+    d.style.background = color;
+    d.style.left = (rect.right - bdRect.left) + 'px';
+    d.style.top = (rect.bottom - bdRect.top - 6) + 'px';
+    d.style.setProperty('--dx', (Math.random() * 10 - 5) + 'px');
+    d.style.setProperty('--dy', (4 + Math.random() * 8) + 'px');
+    board.appendChild(d);
+    setTimeout(function(el) {
+      return function() { if (el.parentNode) el.parentNode.removeChild(el); };
+    }(d), 1300);
+  }
+}
+
+function animateChars(spans, speed, dustColor, boardId) {
+  return new Promise(function(resolve) {
+    var i = 0;
+    var iv = setInterval(function() {
+      if (i < spans.length) {
+        spans[i].classList.add('on');
+        if (i % 3 === 0 && spans[i].textContent !== ' ') {
+          spawnDust(spans[i], dustColor, boardId);
+        }
+        i++;
+      } else {
+        clearInterval(iv);
+        resolve();
+      }
+    }, speed);
+  });
+}
+
+function runChalkboard(board) {
+  var script = [
+    { type: 'line', color: 'chalk-w', text: 'k = 2 가로선?', size: 24 },
+    { type: 'pause', ms: 300 },
+    { type: 'line', color: 'chalk-y', text: '→ f(x) 극대점에서 딱 접해야', size: 26, bold: true },
+    { type: 'pause', ms: 300 },
+    { type: 'line', color: 'chalk-r', text: '극댓값 = 2 !! ★', size: 26, bold: true }
+  ];
+
+  var p = Promise.resolve();
+  script.forEach(function(cmd) {
+    p = p.then(function() {
+      if (cmd.type === 'pause') {
+        return new Promise(function(r) { setTimeout(r, cmd.ms); });
+      } else if (cmd.type === 'line') {
+        var row = document.createElement('div');
+        row.className = 'chalk-row ' + cmd.color;
+        var spans = makeCharSpans(row, cmd.text, cmd.size, cmd.bold);
+        board.appendChild(row);
+        var dustColor = 'rgba(235,230,220,0.8)';
+        if (cmd.color === 'chalk-y') dustColor = 'rgba(252,211,77,0.8)';
+        if (cmd.color === 'chalk-r') dustColor = 'rgba(248,113,113,0.8)';
+        if (cmd.color === 'chalk-b') dustColor = 'rgba(147,197,253,0.8)';
+        return animateChars(spans, 32, dustColor, board.id);
+      }
+    }).then(function() {
+      return new Promise(function(r) { setTimeout(r, 250); });
+    });
+  });
+}
+
+var chalkObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting && !entry.target.dataset.played) {
+      entry.target.dataset.played = 'true';
+      runChalkboard(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.chalkboard').forEach(function(el) {
+  chalkObserver.observe(el);
+});
+</script>

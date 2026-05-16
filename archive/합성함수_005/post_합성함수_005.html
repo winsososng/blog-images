@@ -1,0 +1,568 @@
+<div class="blog-post-container" style="max-width: 720px; margin: 0 auto;">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Hi+Melody&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ── Primary ── */
+  --color-primary: #2563EB;
+  --color-primary-light: #3B82F6;
+  --color-primary-dark: #1D4ED8;
+  --color-primary-bg: #EFF6FF;
+
+  /* ── Accent ── */
+  --color-accent: #F59E0B;
+  --color-accent-light: #FCD34D;
+  --color-accent-dark: #D97706;
+  --color-accent-bg: #FFFBEB;
+
+  /* ── Semantic ── */
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  --color-warning: #F97316;
+  --color-info: #6366F1;
+
+  /* ── Neutral ── */
+  --color-text: #1E293B;
+  --color-text-secondary: #64748B;
+  --color-text-muted: #94A3B8;
+  --color-bg: #FFFFFF;
+  --color-bg-subtle: #F8FAFC;
+  --color-bg-card: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+
+  /* ── 폰트 패밀리 ── */
+  --font-heading: 'Pretendard', -apple-system, sans-serif;
+  --font-body: 'Pretendard', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'D2Coding', monospace;
+  --font-accent: 'RIDIBatang', 'Noto Serif KR', serif;
+
+  /* ── 폰트 크기 ── */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* ── 행간 ── */
+  --leading-tight: 1.4;
+  --leading-normal: 1.8;
+  --leading-relaxed: 2.0;
+
+  /* ── 간격 ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* ── 둥근 모서리 ── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ── 그림자 ── */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+  --shadow-glow: 0 0 20px rgba(37,99,235,0.15);
+}
+
+.blog-post-container {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+}
+
+/* ── 스크롤 등장 ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 섹션 헤더 ── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.section-number {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  opacity: 0.3;
+  font-family: var(--font-mono);
+}
+
+.section-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ── 핵심 메시지 ── */
+.key-message {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-accent-bg);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-accent);
+  margin: var(--space-8) 0;
+}
+
+.key-message-icon {
+  font-size: var(--text-2xl);
+  flex-shrink: 0;
+}
+
+.key-message-text {
+  font-family: var(--font-accent);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* ── 탭 컴포넌트 ── */
+.tabs { margin: var(--space-8) 0; }
+.tab-buttons { display: flex; border-bottom: 2px solid var(--color-border); gap: 0; }
+.tab-btn { padding: var(--space-3) var(--space-6); border: none; background: none; cursor: pointer; font-weight: 500; color: var(--color-text-secondary); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s ease; font-size: var(--text-base); }
+.tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 700; }
+/* 컬러 적용 */
+.tab-btn[data-color="blue"].active { color: #2563EB; border-bottom-color: #2563EB; }
+.tab-btn[data-color="green"].active { color: #16A34A; border-bottom-color: #16A34A; }
+.tab-btn[data-color="amber"].active { color: #F59E0B; border-bottom-color: #F59E0B; }
+.tab-btn[data-color="red"].active { color: #DC2626; border-bottom-color: #DC2626; }
+
+.tab-btn:hover:not(.active) { color: var(--color-text); background: var(--color-bg-subtle); }
+.tab-panel { display: none; padding: var(--space-6) 0; animation: fadeIn 0.3s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── 이미지 스타일 ── */
+.post-image { max-width: 100%; height: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: block; margin: var(--space-6) auto; }
+.post-image.formula { max-width: 600px; }
+.post-image.graph { max-width: 500px; }
+.image-caption { text-align: center; font-size: var(--text-sm); color: var(--color-text-secondary); margin-top: -var(--space-4); margin-bottom: var(--space-8); }
+
+/* ── 수식 강조 ── */
+.math-highlight { display: block; padding: var(--space-6) var(--space-8); margin: var(--space-8) 0; background: var(--color-primary-bg); border-left: 4px solid var(--color-primary); border-radius: var(--radius-md); position: relative; overflow: hidden; }
+.math-highlight.visible { animation: mathGlow 1.5s ease-out; }
+@keyframes mathGlow { 0% { box-shadow: 0 0 0 rgba(37,99,235,0); } 30% { box-shadow: 0 0 30px rgba(37,99,235,0.2); } 100% { box-shadow: var(--shadow-sm); } }
+.math-hero { text-align: center; padding: var(--space-8) var(--space-10); margin: var(--space-8) 0; background: linear-gradient(135deg, var(--color-primary-bg), #F0F4FF); border: 2px solid var(--color-primary); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+
+/* ── 칠판 배경 ── */
+.chalkboard { background: linear-gradient(170deg, #2e4a3a 0%, #243832 40%, #1e3028 100%); border-radius: var(--radius-lg); padding: var(--space-8) var(--space-8) var(--space-12); position: relative; overflow: hidden; margin: var(--space-8) 0;}
+.chalkboard::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; border-radius: var(--radius-lg); }
+.chalk-tray { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; opacity: 0.45; }
+.chalk-tray-dot { width: 8px; height: 8px; border-radius: 50%; }
+.chalk-w .ch { color: rgba(235, 230, 220, 0.88); text-shadow: 1px 1px 2px rgba(235,230,220,0.08), -0.5px 0 1px rgba(235,230,220,0.05); }
+.chalk-y .ch { color: rgba(252, 211, 77, 0.9); text-shadow: 1px 1px 2px rgba(252,211,77,0.08); }
+.chalk-r .ch { color: rgba(248, 113, 113, 0.88); text-shadow: 1px 1px 2px rgba(248,113,113,0.08); }
+.chalk-b .ch { color: rgba(147, 197, 253, 0.88); text-shadow: 1px 1px 2px rgba(147,197,253,0.08); }
+.chalk-row { font-size: 22px; line-height: 2.1; margin-bottom: 0.5rem; position: relative; white-space: pre-wrap; display: flex; flex-wrap: wrap; align-items: baseline; }
+.ch { display: inline-block; opacity: 0; font-family: 'Nanum Pen Script', 'Hi Melody', 'Gaegu', cursive; }
+.ch.on { opacity: 1; }
+.chalk-dust { position: absolute; border-radius: 50%; pointer-events: none; animation: dustFall 1.2s ease-out forwards; }
+@keyframes dustFall { 0% { opacity: 0.5; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)); } }
+
+p { margin-bottom: var(--space-4); }
+</style>
+
+<!-- 본문 시작 -->
+
+<div class="reveal">
+  <p>오늘은 합성함수와 친해지기 다섯 번째 시간이야~</p>
+  <p>지금까지 합성함수의 정통을 차근차근 따라왔지?</p>
+  <p>그리는 법 → 미분하기 → 미분가능성으로 꿰매기 → 치환적분으로 거꾸로 풀어내기~</p>
+  <p>오늘은 잠시 쉬어가면서, 아빠가 보고 너무 신기했던 합성함수 하나를 함께 구경해볼까?</p>
+  <p>학습이라기 보단 감상이야. 그러니깐 부담 없이~</p>
+</div>
+
+<!-- 섹션 1 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">보통 합성함수 vs 오늘의 신기한 함수</h2>
+  </div>
+  <p>자, 보통 합성함수 문제는 어떻게 생겼지?</p>
+  <p>대부분 이런 식이야.</p>
+  <p>"x가 -1보다 작은 구간에서는 f(x) = ~~,<br>
+  x가 -1보다 크고 1보다 작은 구간에서는 f(x) = ~~,<br>
+  x가 1보다 큰 구간에서는 f(x) = ~~"</p>
+  <p>이렇게 <strong>x의 구간을 미리 나눠서, 각 구간마다 함수식을 따로 적어주는 거</strong>야.</p>
+  <p>그런데 오늘 볼 함수는 좀 달라.</p>
+  <p>이 문제야. 2026학년도 대비 3월 교육청 미적분 28번이란다.</p>
+  
+  <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/original_001_problem_full.png" alt="2026 3월 교육청 미적분 28번 문제 원문" class="post-image">
+  <div class="image-caption">2026학년도 3월 교육청 미적분 28번</div>
+  
+  <p>문제 안에 함수 g(x)가 이렇게 정의되어 있어.</p>
+  
+  <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/original_002_gx_definition.png" alt="g(x) 정의식 확대" class="post-image formula">
+  <div class="image-caption">g(x) 정의식 — 단 하나의 식</div>
+  
+  <p>어때? <strong>딱 한 줄. 그것도 단 하나의 식이야.</strong></p>
+  <p>구간을 나누지도 않았어. 그냥 x에 어떤 값을 넣든 이 식 하나로 처리한다는 거지.</p>
+  <p>그런데 말이야~ 막상 x 값을 이리 저리 넣어보면…</p>
+  
+  <div class="key-message">
+    <div class="key-message-icon">🤖</div>
+    <div class="key-message-text">
+      "이 단 한 식이 등비수열 극한 때문에 저절로 4가지 모습으로 변신해버려. 이른바 4단 변신로보트~"
+    </div>
+  </div>
+  <p>마치 한 대의 로봇이 4단으로 변신하는 것처럼!</p>
+  <p>신기하지?</p>
+</section>
+
+<!-- 섹션 2 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">비밀은 "한 변수씩만 보는 것"</h2>
+  </div>
+  <p>이 함수가 좀 헷갈리는 이유가 뭘까?</p>
+  <p>바로 <strong>변수가 두 개라서</strong>야. x도 변하고, n도 변하니깐.</p>
+  <p>두 개를 동시에 보면 누구나 헷갈려. 그래서 아빠가 비밀 하나 알려줄께~</p>
+  
+  <div class="key-message">
+    <div class="key-message-icon">💡</div>
+    <div class="key-message-text">
+      "변수가 두 개라 헷갈리는 거야. 한 번에 한 변수씩만 고정해서 보면 패턴이 보여."
+    </div>
+  </div>
+  
+  <p>즉, <strong>x 자리에 특정한 숫자를 대입해서 잠시 상수처럼 고정</strong>시켜놓고, <strong>n만 무한대로 보내보는 거</strong>야.</p>
+  <p>이걸 3~4번 정도 반복해보면…</p>
+  <p>"아하~ 이런 패턴이구나~"</p>
+  <p>라는 깨달음이 찾아와. 이른바 <strong>아하 모먼트(Aha~ moment)</strong>~</p>
+  <p>자, 그럼 x를 어떤 값으로 나눠봐야 할까?</p>
+  <p>등비수열의 극한 때문에 4가지로 나누면 돼.</p>
+  
+  <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/formula_001_branches.png" alt="4단 변신의 분기 조건" class="post-image formula">
+  <div class="image-caption">4단 변신의 분기 조건</div>
+  
+  <p>이렇게 4가지! 자, 하나씩 시뮬레이션~</p>
+</section>
+
+<!-- 섹션 3 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">4단 변신 시뮬레이션 — ①, ②, ③</h2>
+  </div>
+  
+  <div class="tabs">
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="tab1" data-color="blue">경우 ① |x| &gt; 1</button>
+      <button class="tab-btn" data-tab="tab2" data-color="green">경우 ② |x| &lt; 1</button>
+      <button class="tab-btn" data-tab="tab3" data-color="amber">경우 ③ x = 1</button>
+    </div>
+    
+    <div id="tab1" class="tab-panel active">
+      <p>x의 절댓값이 1보다 크면, n이 무한대로 갈 때 x^n과 x^(2n)은 어떻게 될까?</p>
+      <p>당연히 매우 매우 커지지!</p>
+      <p>그래서 분자와 분모에서 가장 큰 항인 x^(2n)을 기준으로 정리하면…</p>
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/original_003_case1_abs_greater.png" alt="경우 1 시뮬레이션 결과" class="post-image formula">
+      <div class="image-caption">경우 1 : |x| &gt; 1 → 2x²</div>
+      <p>결국 <strong>g(x) = 2x²</strong> 가 돼.</p>
+      <p>어? <strong>갑자기 난데없이 2차함수가 나오네~</strong> 신기하다~</p>
+    </div>
+    
+    <div id="tab2" class="tab-panel">
+      <p>이번엔 x의 절댓값이 1보다 작은 경우. n이 무한대로 갈 때 x^n과 x^(2n)은? 0으로 한없이 가까워지지.</p>
+      <p>그래서 이번엔 분자·분모에서 <strong>상수항(=0이 안 되는 항)이 가장 중요해져</strong>.</p>
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/original_004_case2_abs_less.png" alt="경우 2 시뮬레이션 결과" class="post-image formula">
+      <div class="image-caption">경우 2 : |x| &lt; 1 → f(x)</div>
+      <p>결국 <strong>g(x) = f(x)</strong> 가 돼.</p>
+      <p><strong>우와~ 이번엔 f(x)가 그대로 나오는구나~</strong></p>
+    </div>
+    
+    <div id="tab3" class="tab-panel">
+      <p>x = 1 이면, 1^n = 1 이고 1^(2n) = 1 이니깐~</p>
+      <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/original_005_case3_x_equals_1.png" alt="경우 3 시뮬레이션 결과" class="post-image formula">
+      <div class="image-caption">경우 3 : x = 1</div>
+      <p>값이 (3 + f(1)) / 3 으로 수렴해. f(1) = a + b 이니깐 g(1) = (3 + a + b) / 3.</p>
+      <p>여기까지는 어렵지 않지?</p>
+    </div>
+  </div>
+  
+  <p>자, 이제 진짜 신기한 부분이야~</p>
+</section>
+
+<!-- 섹션 4 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">경우 ④ : x = -1 — 진동인데 진동이 사라지는 마법</h2>
+  </div>
+  <p>x = -1 일 때를 보자. 이게 오늘의 클라이맥스야~</p>
+  <p>x = -1 이면 (-1)^n 은 어떻게 되지?</p>
+  <p>n이 홀수면 -1이 되고, n이 짝수면 +1이 돼.</p>
+  <p>즉 <strong>n에 따라 값이 왔다 갔다 진동</strong>해. 정해진 한 값으로 수렴 안 한다는 거야.</p>
+  
+  <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/original_006_case4_x_equals_minus1.png" alt="경우 4 진동 분석" class="post-image formula">
+  <div class="image-caption">경우 4 : x = -1 진동 분석</div>
+  
+  <p>원칙적으로는 <strong>"수렴하는 극한값을 갖지 못한다"</strong> 가 정답이야.</p>
+  <p>보통 여기서 끝나야 해.</p>
+  <p>근데~ 잠깐만!</p>
+  <p>문제를 다시 봐봐. 박스 안에 이런 조건이 있었어~</p>
+  
+  <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/original_007_box_condition.png" alt="박스 조건" class="post-image formula">
+  <div class="image-caption">박스 조건 (모든 실수 x에 대해 극한 존재)</div>
+  
+  <p><strong>"모든 실수 x에 대해 극한이 존재한다"</strong> 라고 말이야.</p>
+  <p>모든 실수에는 x = -1 도 당연히 포함되지? 그렇다면 <strong>x = -1 일 때에도 수렴해야 한다</strong>는 말이잖아!</p>
+  <p>어? 분명히 진동인데 어떻게 수렴해?</p>
+  <p>비밀은 <strong>f(-1) 값</strong>에 있어.</p>
+  <p>원래는 n이 홀수일 때 g(-1) 과 n이 짝수일 때 g(-1) 이 서로 다른 값이라 진동하는 거였지?</p>
+  <p>그런데 만일~ f(-1) 의 값을 아주아주 특별하게 잡아준다면?</p>
+  <p><strong>두 값이 같아지면서 진동이 사라지고 한 값으로 수렴해버려.</strong></p>
+  
+  <!-- 칠판 판서 효과 -->
+  <div class="chalkboard" id="board-1">
+    <div class="chalk-tray">
+      <div class="chalk-tray-dot" style="background: rgba(235,230,220,0.8)"></div>
+      <div class="chalk-tray-dot" style="background: rgba(252,211,77,0.8)"></div>
+      <div class="chalk-tray-dot" style="background: rgba(248,113,113,0.8)"></div>
+    </div>
+  </div>
+
+  <p>n 짝수일 때 g(-1) = (3 - a - b) / 3</p>
+  <p>n 홀수일 때 g(-1) = 1 - a - b</p>
+  <p>이 두 식을 같다고 놓고 풀면 <strong>f(-1) = 0</strong> 이라는 조건이 자동으로 튀어나와.</p>
+  <p>f(-1) = -a - b 였으니깐 a + b = 0 까지 따라 나오지~</p>
+  <p>그리고 f(x)가 원점대칭인 3차함수(ax³ + bx)이므로, <strong>f(1) = 0</strong> 도 자동으로 따라와.</p>
+  
+  <div class="math-hero">
+    <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/formula_002_climax_box.png" alt="핵심 결론: f(-1)=0, f(1)=0" class="post-image formula" style="margin: 0 auto; box-shadow: none;">
+  </div>
+  <div class="image-caption">핵심 결론 — f(-1)=0, f(1)=0</div>
+  
+  <p>대박이지!</p>
+  
+  <div class="key-message">
+    <div class="key-message-icon">✨</div>
+    <div class="key-message-text">
+      "진동인데 진동이 사라지는 마법~ 이건 출제자의 센스가 빛나는 장면이야."
+    </div>
+  </div>
+  
+  <p>아빠가 진짜 이 부분이 너무 좋아.</p>
+  <p><strong>이건 출제자의 센스가 빛나는 장면이야.</strong></p>
+  <p>학생에게 "발산이니 끝~"이라고 단순히 묻지 않고, 박스 조건 한 줄로 <strong>"f(-1) 값을 너가 찾아내봐"</strong> 라고 우아하게 요구한 거지. 정말 잘 만든 문제야~</p>
+</section>
+
+<!-- 섹션 5 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">짜잔~ 마지막 합쳐진 모습!</h2>
+  </div>
+  <p>자, 4가지 경우를 하나씩 시뮬레이션 다 했어.</p>
+  <p>먼저 4단 변신 결과를 한눈에 정리해볼까?</p>
+  
+  <div class="math-highlight visible">
+    <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/formula_003_results.png" alt="4단 변신 결과 한눈 정리" class="post-image formula" style="margin: 0 auto; box-shadow: none;">
+  </div>
+  <div class="image-caption">4단 변신 결과 한눈 정리</div>
+  
+  <p>이걸 따로따로 보면 각각 단순해 보여. 그런데~ 한 그림에 모아 그려보면 더 재미있는 모습이 나와!</p>
+  
+  <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/original_008_final_graph.png" alt="최종 g(x) 그래프" class="post-image graph">
+  <div class="image-caption">최종 g(x) 그래프 — 4단 변신의 합쳐진 모습</div>
+  
+  <p>봐봐~ <strong>정말 우아하지?</strong></p>
+  <p>|x| &gt; 1 구간에는 2x² 포물선 두 조각이 양쪽에 솟아있고, |x| &lt; 1 구간에는 f(x) 그대로 곡선이 흐르고, x = ±1 위치에는 모두 높이 1로 점이 콕 찍혀있어 (그래프에 그려진 점 (1, 2)는 2x²의 시작 위치인 빈 점이야).</p>
+  <p><strong>단 하나의 식이 만든 그림이라는 게 안 믿겨질 정도야.</strong></p>
+  
+  <div class="key-message">
+    <div class="key-message-icon">🎨</div>
+    <div class="key-message-text">
+      "단 하나의 식이 만든 그림이라는 게 안 믿겨질 정도야. 수학의 우아한 일면이지~"
+    </div>
+  </div>
+  
+  <p>이게 합성함수의 우아한 일면이야. 그동안 1~4편에서 다뤘던 합성함수의 정통과는 또 다른 매력이지~</p>
+  <p>수학이 단지 계산이 아니라, <strong>이런 우아함을 음미하는 학문</strong>이라는 걸 한 번 더 느끼게 되네~</p>
+</section>
+
+<!-- 섹션 6 -->
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <h2 class="section-title">다음 시간에는~</h2>
+  </div>
+  <p>오늘은 여기까지!</p>
+  <p>신기한 g(x) 그래프를 그려봤는데, 사실 이 문제는 여기가 끝이 아니야.</p>
+  
+  <img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/합성함수_005/original_009_meeting_condition.png" alt="k 조건 문장" class="post-image formula">
+  <div class="image-caption">6편 예고 — 추가 조건</div>
+  
+  <p>문제에는 이런 추가 조건도 있었어. <strong>"y = g(x) 의 그래프와 직선 y = k 가 만나는 점의 개수가 1이 되도록 하는 자연수 k 가 존재할 때"</strong> 라는 거지.</p>
+  <p>이 조건을 사용하면 a, b 값이 완전히 특정돼서 답을 계산할 수 있어.</p>
+  <p>답까지 계산해보는 건 다음 시간(6편)에 해보자~</p>
+  <p>안녕~</p>
+</section>
+
+</div>
+
+<script>
+// 스크롤 등장 효과
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+});
+
+// 탭 스크립트
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var tabGroup = this.closest('.tabs');
+      tabGroup.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      tabGroup.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      tabGroup.querySelector('#' + this.dataset.tab).classList.add('active');
+    });
+  });
+});
+
+// 칠판 판서 효과 관련 스크립트
+function makeCharSpans(container, text, size, bold) {
+  var spans = [];
+  for (var i = 0; i < text.length; i++) {
+    var sp = document.createElement('span');
+    sp.className = 'ch';
+    sp.textContent = text[i];
+    if (size) sp.style.fontSize = size + 'px';
+    if (bold) sp.style.fontWeight = '700';
+
+    var rot = (Math.random() - 0.5) * 2.5;
+    var scl = 0.97 + Math.random() * 0.06;
+    var ty = (Math.random() - 0.5) * 1.5;
+    sp.style.transform = 'rotate(' + rot + 'deg) scale(' + scl + ') translateY(' + ty + 'px)';
+
+    if (text[i] === ' ') sp.style.width = '0.3em';
+    container.appendChild(sp);
+    spans.push(sp);
+  }
+  return spans;
+}
+
+function spawnDust(charEl, color, boardId) {
+  var board = document.getElementById(boardId);
+  var rect = charEl.getBoundingClientRect();
+  var bdRect = board.getBoundingClientRect();
+  for (var i = 0; i < 2; i++) {
+    var d = document.createElement('div');
+    d.className = 'chalk-dust';
+    var sz = 1.5 + Math.random() * 2;
+    d.style.width = sz + 'px';
+    d.style.height = sz + 'px';
+    d.style.background = color;
+    d.style.left = (rect.right - bdRect.left) + 'px';
+    d.style.top = (rect.bottom - bdRect.top - 6) + 'px';
+    d.style.setProperty('--dx', (Math.random() * 10 - 5) + 'px');
+    d.style.setProperty('--dy', (4 + Math.random() * 8) + 'px');
+    board.appendChild(d);
+    setTimeout(function(el) {
+      return function() { if (el.parentNode) el.parentNode.removeChild(el); };
+    }(d), 1300);
+  }
+}
+
+function animateChars(spans, speed, dustColor, boardId) {
+  return new Promise(function(resolve) {
+    var i = 0;
+    var iv = setInterval(function() {
+      if (i < spans.length) {
+        spans[i].classList.add('on');
+        if (i % 3 === 0 && spans[i].textContent !== ' ') {
+          spawnDust(spans[i], dustColor, boardId);
+        }
+        i++;
+      } else {
+        clearInterval(iv);
+        resolve();
+      }
+    }, speed);
+  });
+}
+
+function runChalkboard(board) {
+  var script = [
+    { type: 'line', color: 'chalk-w', text: '(-1)^n 은 진동', size: 24 },
+    { type: 'pause', ms: 300 },
+    { type: 'line', color: 'chalk-y', text: '→ 그런데 f(-1) = 0 이면?', size: 26, bold: true },
+    { type: 'pause', ms: 300 },
+    { type: 'line', color: 'chalk-r', text: '진동이 사라진다!! ★', size: 26, bold: true }
+  ];
+
+  var p = Promise.resolve();
+  script.forEach(function(cmd) {
+    p = p.then(function() {
+      if (cmd.type === 'pause') {
+        return new Promise(function(r) { setTimeout(r, cmd.ms); });
+      } else if (cmd.type === 'line') {
+        var row = document.createElement('div');
+        row.className = 'chalk-row ' + cmd.color;
+        var spans = makeCharSpans(row, cmd.text, cmd.size, cmd.bold);
+        board.appendChild(row);
+        var dustColor = 'rgba(235,230,220,0.8)';
+        if (cmd.color === 'chalk-y') dustColor = 'rgba(252,211,77,0.8)';
+        if (cmd.color === 'chalk-r') dustColor = 'rgba(248,113,113,0.8)';
+        if (cmd.color === 'chalk-b') dustColor = 'rgba(147,197,253,0.8)';
+        return animateChars(spans, 32, dustColor, board.id);
+      }
+    }).then(function() {
+      return new Promise(function(r) { setTimeout(r, 250); });
+    });
+  });
+}
+
+var chalkObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting && !entry.target.dataset.played) {
+      entry.target.dataset.played = 'true';
+      runChalkboard(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.chalkboard').forEach(function(el) {
+  chalkObserver.observe(el);
+});
+</script>
