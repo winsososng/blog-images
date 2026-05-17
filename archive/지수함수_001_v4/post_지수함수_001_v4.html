@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+/* 디자인 시스템 (CLAUDE.md) */
+:root {
+  --color-primary: #2563EB;
+  --color-primary-light: #3B82F6;
+  --color-primary-dark: #1D4ED8;
+  --color-primary-bg: #EFF6FF;
+
+  --color-accent: #F59E0B;
+  --color-accent-light: #FCD34D;
+  --color-accent-dark: #D97706;
+  --color-accent-bg: #FFFBEB;
+
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  --color-warning: #F97316;
+  --color-info: #6366F1;
+
+  --color-text: #1E293B;
+  --color-text-secondary: #64748B;
+  --color-text-muted: #94A3B8;
+  --color-bg: #FFFFFF;
+  --color-bg-subtle: #F8FAFC;
+  --color-bg-card: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+
+  --color-examiner: #7C3AED;
+  --color-examiner-light: #8B5CF6;
+  --color-examiner-bg: #F5F3FF;
+  --color-trap: #DC2626;
+  --color-trap-bg: #FEF2F2;
+
+  --font-heading: 'Pretendard', -apple-system, sans-serif;
+  --font-body: 'Pretendard', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'D2Coding', monospace;
+  --font-accent: 'RIDIBatang', 'Noto Serif KR', serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  --leading-tight: 1.4;
+  --leading-normal: 1.8;
+  --leading-relaxed: 2.0;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: -0.01em;
+  --tracking-wide: 0.02em;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  --section-gap: var(--space-16);
+  --paragraph-gap: var(--space-6);
+  --element-gap: var(--space-4);
+
+  --content-width: 720px;
+  --content-padding: var(--space-6);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+  --shadow-glow: 0 0 20px rgba(37,99,235,0.15);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+  font-size: var(--text-lg);
+  background-color: var(--color-bg);
+  margin: 0;
+  padding: 0;
+}
+
+.post-container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--content-padding);
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+p { margin-bottom: var(--paragraph-gap); }
+ul, ol { margin-bottom: var(--paragraph-gap); padding-left: 1.5rem; }
+li { margin-bottom: var(--space-2); }
+
+/* 스크롤 등장 애니메이션 */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 수식 강조 */
+.math-highlight {
+  display: block;
+  padding: var(--space-6) var(--space-8);
+  margin: var(--space-8) 0;
+  background: var(--color-primary-bg);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+.math-highlight.visible {
+  animation: mathGlow 1.5s ease-out;
+}
+@keyframes mathGlow {
+  0% { box-shadow: 0 0 0 rgba(37,99,235,0); }
+  30% { box-shadow: 0 0 30px rgba(37,99,235,0.2); }
+  100% { box-shadow: var(--shadow-sm); }
+}
+
+/* 표 스타일 */
+.table-interactive {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin: var(--space-6) 0;
+}
+.table-interactive th {
+  background: var(--color-primary);
+  color: white;
+  padding: var(--space-3) var(--space-4);
+  font-weight: 600;
+  text-align: center;
+}
+.table-interactive td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-align: center;
+}
+.table-interactive tbody tr:hover td {
+  background: var(--color-primary-bg);
+  transform: scale(1.01);
+}
+
+/* 아코디언 */
+.accordion {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin: var(--space-6) 0;
+}
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-examiner-bg);
+  color: var(--color-examiner-dark);
+  cursor: pointer;
+  font-weight: 700;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+.accordion-header:hover {
+  background: var(--color-border);
+}
+.accordion-icon {
+  transition: transform 0.3s ease;
+  font-size: 1.2em;
+}
+.accordion.open .accordion-icon {
+  transform: rotate(180deg);
+}
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, padding 0.3s ease;
+  padding: 0 var(--space-6);
+}
+.accordion.open .accordion-body {
+  max-height: 2000px;
+  padding: var(--space-6);
+}
+
+/* 컴포넌트 */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-primary);
+}
+.section-number {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  opacity: 0.3;
+  font-family: var(--font-mono);
+}
+.section-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+.key-message {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-accent-bg);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-accent);
+  margin: var(--space-8) 0;
+}
+.key-message-icon {
+  font-size: var(--text-2xl);
+  flex-shrink: 0;
+}
+.key-message-text {
+  font-family: var(--font-accent);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  font-weight: 500;
+}
+.trap-box {
+  background: var(--color-trap-bg);
+  border-left: 4px solid var(--color-trap);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin: var(--space-6) 0;
+}
+
+/* 칠판 판서 */
+.chalkboard {
+  background: linear-gradient(170deg, #2e4a3a 0%, #243832 40%, #1e3028 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-8) var(--space-12);
+  position: relative;
+  overflow: hidden;
+  margin: var(--space-8) 0;
+  box-shadow: var(--shadow-md);
+}
+.chalkboard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: var(--radius-lg);
+}
+.chalk-tray {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  opacity: 0.45;
+}
+.chalk-tray-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.chalk-row {
+  font-size: 24px;
+  line-height: 2.1;
+  margin-bottom: 0.5rem;
+  position: relative;
+  white-space: pre-wrap;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  font-family: 'Nanum Pen Script', 'Hi Melody', 'Gaegu', cursive;
+}
+.ch {
+  display: inline-block;
+  opacity: 0;
+  font-family: 'Nanum Pen Script', 'Hi Melody', 'Gaegu', cursive;
+}
+.ch.on { opacity: 1; }
+.chalk-w .ch { color: rgba(235, 230, 220, 0.88); text-shadow: 1px 1px 2px rgba(235,230,220,0.08), -0.5px 0 1px rgba(235,230,220,0.05); }
+.chalk-y .ch { color: rgba(252, 211, 77, 0.9); text-shadow: 1px 1px 2px rgba(252,211,77,0.08); }
+.chalk-r .ch { color: rgba(248, 113, 113, 0.88); text-shadow: 1px 1px 2px rgba(248,113,113,0.08); }
+.chalk-b .ch { color: rgba(147, 197, 253, 0.88); text-shadow: 1px 1px 2px rgba(147,197,253,0.08); }
+.chalk-dust {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: dustFall 1.2s ease-out forwards;
+}
+@keyframes dustFall {
+  0% { opacity: 0.5; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Hi+Melody&display=swap" rel="stylesheet">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 스크롤 애니메이션
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .math-highlight').forEach(function(el) {
+    observer.observe(el);
+  });
+
+  // 아코디언
+  document.querySelectorAll('.accordion-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      this.parentElement.classList.toggle('open');
+    });
+  });
+
+  // 칠판
+  function runChalkboard(board) {
+    var data = JSON.parse(board.dataset.script);
+    board.innerHTML = '';
+    
+    var tray = document.createElement('div');
+    tray.className = 'chalk-tray';
+    ['#fff', '#fcd34d', '#f87171', '#93c5fd'].forEach(function(c) {
+      var d = document.createElement('div');
+      d.className = 'chalk-tray-dot';
+      d.style.background = c;
+      tray.appendChild(d);
+    });
+    board.appendChild(tray);
+
+    var delay = 0;
+    data.forEach(function(line) {
+      setTimeout(function() {
+        var row = document.createElement('div');
+        row.className = 'chalk-row';
+        var colorClass = 'chalk-w';
+        if (line.color === '#ff6b6b') colorClass = 'chalk-r';
+        if (line.color === '#feca57') colorClass = 'chalk-y';
+        if (line.color === '#48dbfb') colorClass = 'chalk-b';
+        row.classList.add(colorClass);
+
+        var text = line.text;
+        var spans = [];
+        for (var i = 0; i < text.length; i++) {
+          var sp = document.createElement('span');
+          sp.className = 'ch';
+          sp.textContent = text[i];
+          var rot = (Math.random() - 0.5) * 2.5;
+          var scl = 0.97 + Math.random() * 0.06;
+          var ty = (Math.random() - 0.5) * 1.5;
+          sp.style.transform = 'rotate(' + rot + 'deg) scale(' + scl + ') translateY(' + ty + 'px)';
+          if (text[i] === ' ') sp.style.width = '0.3em';
+          row.appendChild(sp);
+          spans.push(sp);
+        }
+        board.appendChild(row);
+
+        var idx = 0;
+        var iv = setInterval(function() {
+          if (idx < spans.length) {
+            spans[idx].classList.add('on');
+            if (idx % 3 === 0 && text[idx] !== ' ') {
+              var d = document.createElement('div');
+              d.className = 'chalk-dust';
+              d.style.width = '2.5px'; d.style.height = '2.5px';
+              d.style.background = line.color || '#fff';
+              var rect = spans[idx].getBoundingClientRect();
+              var bRect = board.getBoundingClientRect();
+              d.style.left = (rect.right - bRect.left) + 'px';
+              d.style.top = (rect.bottom - bRect.top) + 'px';
+              d.style.setProperty('--dx', (Math.random() * 10 - 5) + 'px');
+              d.style.setProperty('--dy', (4 + Math.random() * 8) + 'px');
+              board.appendChild(d);
+              setTimeout(function(){ if(d.parentNode) d.parentNode.removeChild(d); }, 1200);
+            }
+            idx++;
+          } else {
+            clearInterval(iv);
+          }
+        }, 32);
+      }, delay);
+      delay += line.text.length * 32 + 300;
+    });
+  }
+
+  var chalkObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.dataset.played) {
+        entry.target.dataset.played = 'true';
+        runChalkboard(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.chalkboard').forEach(function(el) {
+    chalkObserver.observe(el);
+  });
+});
+</script>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$']],
+    displayMath: [['$$', '$$']],
+    processEscapes: true
+  },
+  options: { ignoreHtmlClass: 'chalkboard|tex2jax_ignore' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="post-container">
+
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">도입 — 시리즈 첫 시간이야</h2>
+  </div>
+  <p>자, 오늘부터 <strong>지수함수와 친해지기</strong> 시리즈를 시작할 거야~</p>
+  <p>총 6편짜리 시리즈인데, 1편인 오늘은 <strong>그냥 가볍게 시작</strong>할게. "지수함수가 도대체 어떻게 생긴 친구인지" 그 모습부터 익숙해지자는 거야.</p>
+  <p>근데 가볍게 시작한다고 내용이 부실한 건 절대 아니야. 1편에 아빠가 정말 좋아하는 <strong>충격적인 사실</strong> 하나가 들어가 있거든. 미리 살짝 말해주자면 — <strong>"무한히 긴 구간인데, 넓이는 유한해진다"</strong> 라는 거야. 이게 뭔 소리야 싶지? 끝까지 읽어봐. 깜짝 놀랄 거야.</p>
+  <p>그리고 마지막엔, 학생들이 시험에서 진짜 많이 헷갈리는 <strong>"세 친구"</strong> 정리까지 갈 거야. 지수함수랑 원점대칭 함수랑 로그함수 — 셋이 비슷해 보여서 자꾸 헷갈리는 그 친구들 말이야.</p>
+  <p>자, 시작해볼까~</p>
+</section>
+
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">지수함수가 뭐냐고?</h2>
+  </div>
+  <p>먼저, 지수함수가 뭔지부터 보고 가자.</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_01.png" alt="지수함수 원본 01" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>지수함수의 모양은 이렇게 생겼어:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_02.png" alt="지수함수 원본 02" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_03.png" alt="지수함수 원본 03" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>여기서 한 가지만 더 짚고 갈게. 왜 밑 $a$에 <strong>$a > 0$이고 $a \neq 1$</strong> 이라는 조건이 붙냐고? 잠깐만 생각해보자.</p>
+  <ul>
+    <li>$a = 1$이면 어떻게 돼? $1^x$은 $x$가 뭐든 항상 $1$이야. 그냥 상수함수가 돼버려서 "함수"라고 부르기엔 너무 시시해.</li>
+    <li>$a < 0$이면? 예를 들어 $a = -2$일 때 $(-2)^{1/2}$ 같은 게 나오면? 음수의 제곱근... 실수 범위에선 안 돼. 골치 아파져.</li>
+    <li>$a = 0$이면? $0^0$ 같은 게 나오는데 정의가 애매해.</li>
+  </ul>
+  <div class="key-message">
+    <div class="key-message-icon">💡</div>
+    <div class="key-message-text">
+      그래서 깔끔하게 <strong>"양수이면서 1이 아닌 수"</strong> 로 약속한 거야. 어렵게 생각할 필요 없어 — "잘 정의되도록 하기 위한 약속" 정도로 받아들이면 돼.
+    </div>
+  </div>
+  <p>그리고 한 가지 더 — <strong>지수법칙</strong> 잠깐 짚고 갈게:</p>
+  <div class="math-highlight">
+    $$
+    a^x \cdot a^y = a^{x+y}, \qquad (a^x)^y = a^{xy}, \qquad a^{-x} = \dfrac{1}{a^x}
+    $$
+  </div>
+  <p>이거 중학교 때 배운 거지? 지수함수에서도 그대로 통해. 특히 세 번째 — $a^{-x} = \dfrac{1}{a^x}$ 이거, 좀 이따 아주 멋진 데서 다시 만날 거야. 기억해둬!</p>
+</section>
+
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">그래프 그려보자 — 폭발 + 점근, 그리고 y축 대칭</h2>
+  </div>
+  <p>말로만 설명하면 안 와닿잖아. 그래프를 그려보자.</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_04.png" alt="지수함수 원본 04" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_05.png" alt="지수함수 원본 05" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+
+  <div class="chalkboard" data-script='[
+    {"text": "y = 2^x  →", "color": "#ffffff"},
+    {"text": "오른쪽으로 폭발!", "color": "#ff6b6b"},
+    {"text": "왼쪽으론 x축에 한없이 가까이", "color": "#feca57"},
+    {"text": " ← 절대 닿지 않는다 (점근선)", "color": "#48dbfb"}
+  ]'></div>
+
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_06.png" alt="지수함수 원본 06" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>어때, 모양 보여? 두 가지 핵심 특징이 한눈에 들어와:</p>
+  <p><strong>오른쪽으론 폭발적으로 커진다.</strong> $x$가 1만 커져도 $y$값은 2배가 되니까, $x=10$이면 $y=1024$, $x=20$이면 $y$가 100만이 넘어. 진짜 폭발이지. 아빠가 어렸을 때 "한 알이 두 알 되고, 두 알이 네 알 되는 쌀알 이야기" 들어본 적 있어? 그게 바로 지수적 증가야.</p>
+  <p><strong>왼쪽으론 x축에 한없이 가까워지지만, 절대 닿지 않는다.</strong> $x=-2$일 때 $y = 1/4$, $x=-10$이면 $y = 1/1024$. 점점 작아져서 0에 가까워지는데, <strong>절대로 0이 되지는 않아.</strong> 왜냐고? 2를 아무리 많이 곱하거나 나눠도 0이 될 수는 없잖아? 그래서 x축에 한없이 가까워지기만 해. 이렇게 <strong>함수가 한없이 가까워지지만 닿지 않는 직선</strong>을 <strong>점근선</strong>이라고 불러. $y = 2^x$의 점근선은 <strong>x축 (즉 $y=0$)</strong> 이야.</p>
+  <p>여기서 잠깐 — 한 가지 더 보너스 인사이트 줄게. 학생들이 자주 묻는 질문이야:</p>
+  <div class="trap-box">
+    "그러면 밑이 1보다 작은 지수함수, 예를 들어 $y = (1/2)^x$는 어떻게 생겼어요?"
+  </div>
+  <p>새로 외울 필요 없어! <strong>지수법칙으로 한 방에 정리</strong>돼.</p>
+  <p>기억나? 위에서 본 $a^{-x} = \dfrac{1}{a^x}$. 이걸 거꾸로 쓰면:</p>
+  <div class="math-highlight">
+    $$
+    \left(\dfrac{1}{2}\right)^x = (2^{-1})^x = 2^{-x}
+    $$
+  </div>
+  <p>즉 $y = \left(\dfrac{1}{2}\right)^x$는 결국 <strong>$y = 2^{-x}$</strong> 와 똑같은 함수야! 그런데 $y = 2^{-x}$는 $y = 2^x$에서 $x$ 자리에 $-x$를 넣은 거잖아? <strong>$x$를 $-x$로 바꾸는 것 = y축 대칭</strong> 이야 (1학기 때 배웠지?).</p>
+  <p>그러니까 <strong>"밑이 1보다 작으면 감소함수"</strong> 라고 그냥 외우지 마. 그게 아니라 — <strong>"밑이 1보다 작은 지수함수는 밑이 1보다 큰 지수함수의 y축 대칭이라서, 결과적으로 감소함수가 되는 거야."</strong> 이렇게 이해해야 진짜야.</p>
+  <p>대박이지? 두 그래프를 따로따로 외우는 게 아니라, 하나의 그래프 + y축 대칭이라는 관계로 이해하는 거야. 이게 1편의 첫 번째 보너스 선물~</p>
+</section>
+
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">지수함수의 5대 특징 정리</h2>
+  </div>
+  <p>자, 그래프를 봤으니 5대 특징을 깔끔하게 정리해보자. 이거 외워두면 시험에서 1초 컷이야.</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_07.png" alt="지수함수 원본 07" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_08.png" alt="지수함수 원본 08" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_09.png" alt="지수함수 원본 09" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_10.png" alt="지수함수 원본 10" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_11.png" alt="지수함수 원본 11" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_12.png" alt="지수함수 원본 12" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+
+  <table class="table-interactive">
+    <thead>
+      <tr><th>#</th><th>특징</th><th>내용</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>정의역</td><td>모든 실수 ($x \in \mathbb{R}$)</td></tr>
+      <tr class="pattern-found"><td>2</td><td>치역</td><td>양의 실수 전체 ($y > 0$) — 절대 0 이하로 안 내려감</td></tr>
+      <tr><td>3</td><td>y절편</td><td>항상 $1$ ($a^0 = 1$이니까)</td></tr>
+      <tr><td>4</td><td>점근선</td><td>x축 ($y = 0$)</td></tr>
+      <tr><td>5</td><td>단조성</td><td>$a > 1$이면 증가, $0 < a < 1$이면 감소 (= 증가함수의 y축 대칭)</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>여기서 가장 중요한 거 하나만 콕 집자면 — 2번, 치역.</strong> 지수함수는 <strong>항상 양수</strong>야. 음수가 되거나 0이 되는 일은 절대 없어. 이거 때문에 이따가 "원점대칭 함수와는 완전히 다른 친구"라는 결론으로 이어져.</p>
+  <p>그리고 한 가지 더 — 이건 1편에서 미리 살짝 던지고 가는 떡밥인데, <strong>"항상 양수"</strong> 라는 성질 덕분에 지수함수는 <strong>곱해도, 미분해도, 적분해도 모양이 변하지 않는</strong> 아주 신기한 성질을 가져. 마치 <strong>"마법의 용수철"</strong> 같아. 이건 다음 2편에서 본격적으로 다룰 거야~</p>
+</section>
+
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">무한구간인데 유한값? 진짜야!</h2>
+  </div>
+  <p>자, 이제 1편의 진짜 하이라이트야. 이거 듣고 아빠는 처음에 너무 신기해서 잠을 못 잤어. 정말이야.</p>
+  <p>질문 하나 할게. $y = 2^x$ 그래프 아래, <strong>마이너스 무한대($-\infty$)에서 0까지</strong> 영역의 넓이가 얼마일까?</p>
+  <p>"음... 구간이 마이너스 무한대부터 시작이니까, 넓이도 무한이 되겠지?" — 라고 생각하기 쉬워. 근데 <strong>틀렸어!</strong> 이 넓이는 <strong>유한한 값</strong>이야. 놀랍지?</p>
+  <p>왜 그럴까? 차근차근 생각해보자. <strong>왼쪽으로 갈수록 곡선이 x축에 점점 달라붙어서, 거의 0이 되어버려.</strong> $x = -10$일 때 $y$값이 이미 $1/1024$야. $x = -20$이면 $y$값이 거의 $0.0000009$ 정도. <strong>그러니까 왼쪽으로 아무리 길게 늘려도, 곡선 아래 영역은 거의 폭이 0인 종이 한 장에 가까워.</strong> 무한히 길지만, 두께가 한없이 얇아져서 <strong>넓이의 총합은 유한한 값에 수렴</strong>하는 거야.</p>
+  <p>이거 진짜 신기하지? 무한대인데 유한이라니. 수학의 마법 같아.</p>
+  <p>실제로 계산해볼까? 부정적분부터 시작하자:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_13.png" alt="지수함수 원본 13" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>이걸 이용해서 정적분을 해보자. 구간은 마이너스 무한대($-\infty$)에서 0까지:</p>
+  
+  <div class="chalkboard" data-script='[
+    {"text": "-∞ ━━━━━ 0 까지 적분?", "color": "#ffffff"},
+    {"text": "구간은 무한! 그런데 넓이는?", "color": "#ff6b6b"},
+    {"text": "★ 유한값! 1/ln2 ≈ 1.44 ★", "color": "#feca57"}
+  ]'></div>
+
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_14.png" alt="지수함수 원본 14" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>자, 마이너스 무한대에서 $2^x$가 어떻게 되는지 떠올려보자. 그래프에서 봤지? x가 마이너스로 갈수록 $2^x$는 0에 한없이 가까워져. 그래서:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_15.png" alt="지수함수 원본 15" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><strong>$\dfrac{1}{\ln 2}$ ≈ 약 1.44</strong> 라는 유한한 값이 나와! 무한구간인데 1.44라니, 정말 신비롭지?</p>
+  <p>자, 여기서 정말 멋진 게 하나 더 있어. 만약 밑이 자연상수 $e$였다면 어떻게 될까?</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_16.png" alt="지수함수 원본 16" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>자연상수 $e$는 약 2.718 정도 되는 특별한 수야. 5편에서 본격적으로 다룰 친구인데, 지금은 한 가지 사실만 알고 가자 — <strong>$\ln e = 1$</strong> 이라는 거.</p>
+  <p>$y = e^x$의 부정적분은:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_17.png" alt="지수함수 원본 17" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_18.png" alt="지수함수 원본 18" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>이걸로 정적분을 해보면:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_19.png" alt="지수함수 원본 19" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><strong>딱! 1이 나와.</strong> 이게 우연일까? 아니야. 4편에서 이 "1"이라는 숫자가 어떤 의미인지 자세히 풀어줄 거야. 미리 말해두면 — <strong>$e^x$ 위의 점 $(0, 1)$에서, 접선의 기울기도 1이고 그 점까지의 적분값도 1</strong>이라는, 정말 말도 안 되는 일이 벌어지거든. 기대해줘~</p>
+  <p>아 그리고 한 가지만 더. 이 "무한구간 유한값" 적분, 나중에 너희가 "부분적분"이라는 멋진 기법을 배울 때 핵심 도구로 또 만나게 돼. 그러니까 오늘 잘 봐둬!</p>
+</section>
+
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <h2 class="section-title">헷갈리지 마! 비슷하게 생긴 세 친구</h2>
+  </div>
+  <p>자, 이제 1편 마무리 직전, 정말 중요한 정리 한 번 하자.</p>
+  <p>시험에서 학생들이 진짜 많이 헷갈리는 게 있어. 모양은 좀 비슷해 보이는데 본질은 완전히 다른 <strong>세 친구</strong>야.</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_20.png" alt="지수함수 원본 20" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>세 친구는 이렇게야:</p>
+  <ul>
+    <li><strong>(가) 지수함수</strong>: $y = 2^x$ (오늘 배운 그 친구)</li>
+    <li><strong>(나) 원점대칭 함수</strong>: $y = -2^{-x} = -(1/2)^x$</li>
+    <li><strong>(다) 로그함수</strong>: $y = \log_2 x$</li>
+  </ul>
+  <p>먼저 지수함수와 그 원점대칭 함수를 같이 보자:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_21.png" alt="지수함수 원본 21" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>여기서 <strong>(나)가 정말 흥미로워</strong>. 어떻게 이게 $y = 2^x$의 원점대칭이 되는지, 아빠가 단계별로 보여줄게.</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_22.png" alt="지수함수 원본 22" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>핵심 아이디어는 이거야 — <strong>원점대칭은 그래프를 원점 $(0, 0)$을 중심으로 180도 뒤집는 거</strong>거든. 그래서 원래 함수 위의 점 $(x, y)$가 원점대칭 함수에서는 $(-x, -y)$가 되는 거지.</p>
+  <p>$y = 2^x$에서 $y$를 $-y$로, $x$를 $-x$로 바꾸면:</p>
+  <div class="math-highlight">
+    $$
+    -y = 2^{-x} \quad \Rightarrow \quad y = -2^{-x}
+    $$
+  </div>
+  <p>좋아, 그럼 진짜로 원점대칭이 맞는지 직접 점 찍어서 확인해보자:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_23.png" alt="지수함수 원본 23" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>깔끔하지? $y = 2^x$의 점 $(1, 2)$는 $y = -2^{-x}$에서 $(-1, -2)$가 돼. 정확히 원점 반대편!</p>
+  <p>그래프로 같이 보면 더 확실해져:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_24.png" alt="지수함수 원본 24" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><strong>$y = 2^x$가 1·2사분면에 있다면, $y = -2^{-x}$는 3·4사분면에 있어.</strong> 원점을 가운데 두고 180도 돌려놓은 모양이지. 정말 깔끔한 대칭이야.</p>
+  <p>이제 로그함수도 같이 보자. 로그함수는 어떻게 정의되더라?</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_25.png" alt="지수함수 원본 25" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>로그함수는 <strong>$y = 2^x$의 역함수</strong>야. 역함수가 뭐냐면 — $x$와 $y$를 바꾼 함수지. $y = 2^x$에서 $x$와 $y$를 바꾸면 $x = 2^y$가 되는데, 이걸 $y$에 대해 정리한 게 $y = \log_2 x$.</p>
+  <p>특징은 이래:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_26.png" alt="지수함수 원본 26" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <ul>
+    <li><strong>정의역</strong>: $x > 0$ (양수만 가능) — 지수함수의 치역이 양수였으니, 역함수는 정의역이 양수.</li>
+    <li><strong>치역</strong>: 모든 실수 — 지수함수의 정의역이 모든 실수였으니, 역함수는 치역이 모든 실수.</li>
+    <li><strong>그래프</strong>: $y = 2^x$를 직선 $y = x$를 기준으로 뒤집은 모양 (역함수의 일반적 성질).</li>
+  </ul>
+  <p>이제 세 친구를 모두 한 좌표평면에 올려보자:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_27.png" alt="지수함수 원본 27" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>다 다르게 생겼지? 이제 표로 정리해줄게:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_28.png" alt="지수함수 원본 28" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>표로 보면 한 방에 정리되지? 핵심 차이를 다시 정리하면:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_29.png" alt="지수함수 원본 29" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>자, 마지막으로 실제 값을 넣어서 확인해보자. 같은 $x$값을 넣었을 때 세 함수가 각각 어떤 $y$값을 만드는지:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_30.png" alt="지수함수 원본 30" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_31.png" alt="지수함수 원본 31" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_32.png" alt="지수함수 원본 32" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>차이가 명확하게 보여? 한 줄로 요약하면 이렇게야:</p>
+  <ul>
+    <li><strong>지수함수</strong> $y = 2^x$: 정의역이 모든 실수, 치역은 양수만, <strong>1·2사분면</strong></li>
+    <li><strong>원점대칭 함수</strong> $y = -2^{-x}$: 정의역이 모든 실수, 치역은 음수만, <strong>3·4사분면</strong> (지수함수의 원점대칭)</li>
+    <li><strong>로그함수</strong> $y = \log_2 x$: 정의역이 양수만, 치역은 모든 실수, <strong>1·4사분면</strong> (지수함수의 $y = x$ 대칭)</li>
+  </ul>
+  <p>이 중에서 <strong>(나)와 (다)가 가장 헷갈리는 짝꿍</strong>이야. 둘 다 그래프가 4사분면(x>0, y<0 영역)을 지나가거든:</p>
+  <ul>
+    <li><strong>원점대칭 함수</strong>는 4사분면에서 <strong>점점 내려가</strong> ($y$가 음수로 더 커짐)</li>
+    <li><strong>로그함수</strong>는 4사분면에서 <strong>점점 올라가</strong> ($y$가 0에 가까워짐)</li>
+  </ul>
+  <p>그리고 <strong>결정적 차이</strong>:</p>
+  <ul>
+    <li><strong>원점대칭 함수</strong>는 <strong>모든 실수 $x$</strong>에서 정의됨 (-5도 OK)</li>
+    <li><strong>로그함수</strong>는 <strong>$x > 0$에서만</strong> 정의됨 ($x = -1$ 같은 데서는 그래프가 없음!)</li>
+  </ul>
+  <p>이 차이 하나만 봐도 시험에서 즉답할 수 있어. 그리고 <strong>"로그함수는 지수함수의 역함수"</strong> 라는 사실 — 9강에서 본격적으로 다룰 건데, 미리 머릿속에 박아둬!</p>
+</section>
+
+<section class="reveal">
+  <div class="section-header">
+    <span class="section-number">07</span>
+    <h2 class="section-title">마무리 — 마법의 용수철로 이어진다</h2>
+  </div>
+  <p>오늘 1편에서 챙긴 핵심을 정리해보자:</p>
+  <p><img src="https://raw.githubusercontent.com/winsososng/blog-images/main/images/지수함수_001_v4/original_33.png" alt="지수함수 원본 33" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin:1rem 0;"></p>
+  <p>크게 다섯 가지를 챙겼지:</p>
+  <ol>
+    <li><strong>지수함수 $y = a^x$의 모양</strong> — 오른쪽 폭발, 왼쪽 점근. y절편은 1, 치역은 양수만, 점근선은 x축.</li>
+    <li><strong>밑이 1보다 작은 경우</strong> — 따로 외울 필요 없음. <strong>$y = 2^x$의 y축 대칭</strong>이 곧 $y = (1/2)^x$니까.</li>
+    <li><strong>무한구간인데 유한값</strong> — $\int_{-\infty}^{0} a^x\, dx = \dfrac{1}{\ln a}$. 왼쪽 꼬리가 너무 얇아져서 가능한 마법! 특히 밑이 $e$이면 정확히 1.</li>
+    <li><strong>세 친구 구분</strong> — 지수함수(1·2사분면) / 원점대칭(3·4사분면) / 로그함수(1·4사분면, 지수의 역함수).</li>
+    <li><strong>원점대칭 = y축 대칭 + x축 대칭</strong> — 두 번의 대칭을 합치면 원점 중심 180도 회전.</li>
+  </ol>
+  <p>근데 사실, 오늘 한 거는 <strong>그냥 워밍업</strong>이야. 1편의 진짜 임무는 <strong>그래프 모양에 익숙해지기</strong>까지였거든.</p>
+  <p>진짜 신기한 이야기는 <strong>2편부터 시작</strong>돼. 다음 시간에는 — <strong>"지수함수는 곱해도, 미분해도, 적분해도 자기 모양을 잃지 않는다"</strong> 는 사실을 본격적으로 보여줄 거야. 아빠가 이걸 처음 알았을 때 "어떻게 이런 일이...?" 하고 충격받았던 그 이야기.</p>
+  <p>비유 하나 미리 던져줄게. 다항함수가 <strong>"찰흙"</strong> 같다면 — 위아래로 늘이면 모양이 변하고, 미분하면 차수가 깎여 나가니까 — <strong>지수함수는 "마법의 용수철"</strong> 같아. 아무리 잡아당기고 비틀어도 결국 <strong>자기 자신</strong>으로 돌아오는 친구야. 신기하지?</p>
+  <div class="key-message">
+    <div class="key-message-icon">📌</div>
+    <div class="key-message-text">
+      이 <strong>"마법의 용수철"</strong> 이라는 단어, 시리즈 내내 자주 들을 거야. 자기 닮음의 끝판왕이거든.
+    </div>
+  </div>
+  <p>오늘은 여기까지~ 1편 같이 와줘서 고마워. 2편에서 만나자~ 🌱</p>
+</section>
+
+<!-- 고3 출제자 의도 아코디언 -->
+<div class="accordion">
+  <div class="accordion-header">
+    <span>🎯 고3 추가: 출제자의 의도 확인하기</span>
+    <span class="accordion-icon">▼</span>
+  </div>
+  <div class="accordion-body">
+    <div style="margin-top: 1rem;">
+      <h3 style="color:var(--color-examiner-dark)">Q1. 출제자는 왜 이 단원을 냈을까?</h3>
+      <p>지수함수는 <strong>로그함수, 미분, 적분의 전 단원 기초</strong>라서, 출제자는 "그래프적 직관 + 점근선 처리"가 단단한지를 본단다. 진짜 어려운 문제는 이후 단원에서 나오지만, 출제자는 이 단원의 도입 문제에서 <strong>'기초 도구가 흔들리면 뒤가 다 무너진다'</strong> 는 걸 알고 일부러 함정을 깔아놔.</p>
+
+      <h3 style="color:var(--color-examiner-dark)">Q2. 핵심 출제 포인트 3가지</h3>
+      <ol>
+        <li><strong>점근선의 정확한 위치</strong> — 밑이 $0<a<1$일 때 점근선이 어디인지 헷갈리게 함</li>
+        <li><strong>무한구간 정적분의 수렴/발산</strong> — 적분 방향과 점근선 방향이 맞는지 판단</li>
+        <li><strong>지수 vs 원점대칭 vs 로그 매칭</strong> — y절편·정의역·점근선 3종 즉답 능력</li>
+      </ol>
+
+      <h3 style="color:var(--color-examiner-dark)">Q3. 출제자가 노린 함정</h3>
+      <table class="table-interactive">
+        <thead>
+          <tr><th>함정</th><th>설명</th><th>회피법</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>원점대칭 vs x축대칭 혼동</td>
+            <td>"$y=2^x$의 원점대칭은?" 보기에 $y=-2^x$ 두기</td>
+            <td>$y=-2^x$는 x축 대칭일 뿐. 원점대칭은 $y=-2^{-x}$</td>
+          </tr>
+          <tr>
+            <td>점근선 방향 헷갈리기</td>
+            <td>"$y=(1/2)^x$의 점근선은?" → y축이라고 답함</td>
+            <td><strong>y축 대칭</strong>을 떠올리면 점근선은 그대로 <strong>x축</strong></td>
+          </tr>
+          <tr>
+            <td>그래프 매칭 4지선다</td>
+            <td>$y=2^x$, $y=-2^x$, $y=2^{-x}$, $y=\log_2 x$ 섞어놓고 매칭</td>
+            <td><strong>y절편·치역·점근선 3종 세트</strong>로 1초 컷</td>
+          </tr>
+          <tr>
+            <td>적분 발산/수렴 판단</td>
+            <td>$\int_{0}^{\infty} 2^x dx$와 $\int_{-\infty}^{0} 2^x dx$ 중 수렴은?</td>
+            <td><strong>점근선 방향 = 수렴 방향</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="color:var(--color-examiner-dark)">Q4. 가능한 변형 예측</h3>
+      <ul>
+        <li><strong>원점대칭 vs x축대칭 매칭형</strong>: "다음 중 $y=2^x$의 원점대칭인 것은?" — $y=-2^x$, $y=2^{-x}$, $y=-2^{-x}$ 보기 매칭</li>
+        <li><strong>수렴 보기 매칭형</strong>: "다음 중 무한구간 정적분이 수렴하는 것은?"</li>
+        <li><strong>그래프 4지선다</strong>: 4개 그래프 ↔ 4개 식 매칭</li>
+      </ul>
+      <div class="trap-box">
+        💡 <strong>핵심 한 줄</strong>: <strong>"점근선 방향이 수렴 방향이다. 원점대칭은 x축+y축 두 번 대칭이다."</strong> 이 두 줄이 1편에서 가장 강력한 무기야.
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
